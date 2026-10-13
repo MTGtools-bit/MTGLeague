@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="rustic_cafe">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pod League - MTG Playgroup Season & Achievement Board</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* THEME 1: Rustic Café (Morning Roast & 35mm Film Grain) */
+    :root, [data-theme="rustic_cafe"] {
+      --bg-base: #17120e;
+      --bg-gradient: radial-gradient(ellipse at 25% -10%, #3e281c 0%, #251b14 40%, #16100c 85%, #0e0a08 100%);
+      --surface-card: rgba(35, 26, 20, 0.84);
+      --surface-subtle: rgba(48, 36, 28, 0.65);
+      --border-accent: rgba(212, 163, 115, 0.38);
+      --border-subtle: rgba(230, 204, 178, 0.12);
+      --accent-primary: #d4a373;
+      --accent-glow: rgba(212, 163, 115, 0.35);
+      --btn-grad: linear-gradient(135deg, #b07246 0%, #8c522b 50%, #683817 100%);
+      --header-bg: rgba(23, 18, 14, 0.94);
+      --shimmer-grad: linear-gradient(90deg, #d4a373, #faedcd, #c97a56, #d4a373);
+      --brand-icon-color: #d4a373;
+      --brand-subtle-glow: rgba(212, 163, 115, 0.3);
+      --body-font: 'Inter', sans-serif;
+      --heading-font: 'Fraunces', serif;
+      --analog-grain-opacity: 0.5;
+    }
+
+    /* THEME 2: The Blind Eternities */
+    [data-theme="blind_eternities"] {
+      --bg-base: #030611;
+      --bg-gradient: radial-gradient(ellipse at 50% -15%, #2a1147 0%, #0c1633 45%, #030611 100%);
+      --surface-card: rgba(9, 17, 34, 0.82);
+      --surface-subtle: rgba(18, 30, 56, 0.65);
+      --border-accent: rgba(56, 189, 248, 0.45);
+      --border-subtle: rgba(168, 85, 247, 0.18);
+      --accent-primary: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.45);
+      --btn-grad: linear-gradient(135deg, #7c3aed 0%, #4f46e5 45%, #0284c7 100%);
+      --header-bg: rgba(4, 8, 18, 0.92);
+      --shimmer-grad: linear-gradient(90deg, #38bdf8, #e879f9, #818cf8, #38bdf8);
+      --brand-icon-color: #38bdf8;
+      --brand-subtle-glow: rgba(56, 189, 248, 0.3);
+      --body-font: 'Inter', sans-serif;
+      --heading-font: 'Cinzel', serif;
+      --analog-grain-opacity: 0.15;
+    }
+
+    /* THEME 3: Mythic Gold */
+    [data-theme="mythic"] {
+      --bg-base: #07080e;
+      --bg-gradient: radial-gradient(circle at 50% -10%, #1c152c 0%, #0d0f1a 45%, #06070c 100%);
+      --surface-card: rgba(16, 18, 28, 0.78);
+      --surface-subtle: rgba(25, 28, 44, 0.6);
+      --border-accent: rgba(245, 197, 66, 0.35);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --accent-primary: #f5c542;
+      --accent-glow: rgba(245, 197, 66, 0.35);
+      --btn-grad: linear-gradient(135deg, #d97706 0%, #b45309 50%, #92400e 100%);
+      --header-bg: rgba(7, 8, 14, 0.9);
+      --shimmer-grad: linear-gradient(90deg, #f5c542, #fff7d6, #d97706, #f5c542);
+      --brand-icon-color: #f5c542;
+      --brand-subtle-glow: rgba(245, 197, 66, 0.25);
+      --body-font: 'Inter', sans-serif;
+      --heading-font: 'Cinzel', serif;
+      --analog-grain-opacity: 0.1;
+    }
+
+    body {
+      font-family: var(--body-font);
+      background: var(--bg-gradient);
+      background-color: var(--bg-base);
+      color: #ede0d4;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-attachment: fixed;
+      transition: background-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      mix-blend-mode: overlay;
+      opacity: var(--analog-grain-opacity);
+    }
+
+    .font-cinzel, .theme-heading {
+      font-family: var(--heading-font);
+    }
+
+    .theme-header {
+      background: var(--header-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .glass-panel {
+      background: var(--surface-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .theme-btn-primary {
+      background: var(--btn-grad);
+      color: #ffffff;
+      box-shadow: 0 4px 18px var(--accent-glow);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .theme-btn-primary:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+    }
+
+    .shimmer-text {
+      background: var(--shimmer-grad);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      animation: shimmerAnimation 7s linear infinite;
+    }
+
+    @keyframes shimmerAnimation {
+      to { background-position: 200% center; }
+    }
+
+    .rank-glow-1 { box-shadow: 0 0 18px 2px var(--accent-glow); }
+    .rank-glow-2 { box-shadow: 0 0 14px -1px rgba(220, 200, 180, 0.4); }
+    .rank-glow-3 { box-shadow: 0 0 14px -1px rgba(180, 110, 60, 0.45); }
+    .rank-glow-4 { box-shadow: 0 0 10px -1px rgba(160, 130, 100, 0.3); }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.45); }
+    ::-webkit-scrollbar-thumb { background: var(--border-accent); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <header class="theme-header sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand, League Title & Season Title -->
+      <div class="flex items-center gap-3">
+        <div id="brandIconBox" class="w-10 h-10 rounded-xl flex items-center justify-center glass-panel shadow-lg transition-colors border border-amber-900/30">
+          <i id="brandIcon" class="fa-solid fa-mug-hot text-lg" style="color: var(--brand-icon-color);"></i>
+        </div>
+        <div>
+          <!-- Editable League Title -->
+          <div class="flex items-center gap-1.5">
+            <span id="leagueTitleDisplay" class="theme-heading font-black tracking-wider text-base sm:text-lg block leading-tight text-white shimmer-text">POD LEAGUE</span>
+            <button onclick="promptEditLeagueTitle()" class="text-amber-300/50 hover:text-amber-200 transition text-[11px]" title="Edit League Name">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </div>
+          <!-- Editable Season Title -->
+          <div class="flex items-center gap-1.5 mt-0.5">
+            <span id="seasonBadge" class="text-[11px] font-semibold uppercase tracking-wider text-amber-200/70 truncate max-w-[180px] sm:max-w-xs">Season 1: Coffeehouse Pod</span>
+            <button onclick="promptEditSeasonName()" class="text-amber-300/50 hover:text-amber-200 transition text-[10px]" title="Edit Season Name">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Desktop) -->
+      <div class="hidden md:flex items-center bg-black/55 p-1 rounded-xl border border-white/10 text-xs font-semibold backdrop-blur-md">
+        <button onclick="switchTab('standings')" id="navStandings" class="px-3.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-200 border border-amber-500/40 flex items-center gap-1.5 transition">
+          <i id="navIconStandings" class="fa-solid fa-ranking-star"></i> Standings
+        </button>
+        <button onclick="switchTab('matches')" id="navMatches" class="px-3.5 py-1.5 rounded-lg text-stone-400 hover:text-white flex items-center gap-1.5 transition">
+          <i id="navIconMatches" class="fa-solid fa-book-open"></i> Match Log
+        </button>
+        <button onclick="switchTab('achievements')" id="navAchievements" class="px-3.5 py-1.5 rounded-lg text-stone-400 hover:text-white flex items-center gap-1.5 transition">
+          <i id="navIconAchievements" class="fa-solid fa-award"></i> Trophies (16)
+        </button>
+        <button onclick="switchTab('commanders')" id="navCommanders" class="px-3.5 py-1.5 rounded-lg text-stone-400 hover:text-white flex items-center gap-1.5 transition">
+          <i id="navIconCommanders" class="fa-solid fa-crown"></i> Meta
+        </button>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Live Cloud Sync Status Pill -->
+        <div id="cloudStatusBadge" onclick="openCloudConfigModal()" class="cursor-pointer px-2.5 py-1.5 rounded-xl glass-panel text-[11px] font-semibold text-stone-300 hover:text-white transition flex items-center gap-2 border border-white/10" title="Click to view Live Cloud Sync details">
+          <span id="cloudStatusDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
+          <span class="hidden sm:inline" id="cloudStatusText">Live Sync</span>
+          <i class="fa-solid fa-cloud text-amber-400 text-xs"></i>
+        </div>
+
+        <!-- Theme Switcher Dropdown -->
+        <div class="relative">
+          <button id="themeDropdownBtn" onclick="toggleThemeDropdown()" class="px-3 py-1.5 rounded-xl text-xs font-semibold glass-panel hover:border-amber-400/40 text-stone-300 hover:text-white transition flex items-center gap-2 shadow-sm">
+            <i id="headerPaletteIcon" class="fa-solid fa-palette text-amber-400"></i>
+            <span id="activeThemeLabel" class="hidden sm:inline">Morning Roast</span>
+            <i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
+          </button>
+
+          <div id="themeDropdownMenu" class="hidden absolute right-0 mt-2 w-56 rounded-2xl glass-panel shadow-2xl p-1.5 z-50 border border-white/15">
+            <button onclick="setAppTheme('rustic_cafe')" class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/10 flex items-center justify-between transition group">
+              <span class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-600 shadow-[0_0_8px_#d4a373]"></span>
+                <span class="text-white group-hover:text-amber-200">Morning Roast (Café)</span>
+              </span>
+              <i class="fa-solid fa-check text-amber-400 theme-check-icon" data-theme="rustic_cafe"></i>
+            </button>
+            <button onclick="setAppTheme('blind_eternities')" class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/10 flex items-center justify-between transition group">
+              <span class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"></span>
+                <span class="text-white group-hover:text-cyan-300">The Blind Eternities</span>
+              </span>
+              <i class="fa-solid fa-check text-cyan-400 hidden theme-check-icon" data-theme="blind_eternities"></i>
+            </button>
+            <button onclick="setAppTheme('mythic')" class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/10 flex items-center justify-between transition group">
+              <span class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_#f5c542]"></span>
+                <span class="text-white group-hover:text-amber-300">Mythic Gold</span>
+              </span>
+              <i class="fa-solid fa-check text-amber-400 hidden theme-check-icon" data-theme="mythic"></i>
+            </button>
+          </div>
+        </div>
+
+        <button onclick="openLogGameModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold theme-btn-primary flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-plus text-xs"></i>
+          <span>Log Match</span>
+        </button>
+
+        <button onclick="openDataModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold glass-panel hover:border-amber-400/40 text-stone-300 hover:text-white transition flex items-center gap-1.5 shadow-sm" title="Share League Data">
+          <i class="fa-solid fa-share-nodes text-amber-400"></i>
+          <span class="hidden sm:inline">Share</span>
+        </button>
+
+        <button id="soundToggleBtn" onclick="toggleSound()" class="w-8 h-8 rounded-xl glass-panel text-stone-400 hover:text-white flex items-center justify-center transition" title="Toggle Sound">
+          <i class="fa-solid fa-volume-high text-xs"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <div class="md:hidden bg-black/80 backdrop-blur-md border-b border-white/10 px-4 py-2.5 flex items-center justify-between text-xs font-semibold sticky top-16 z-30">
+    <button onclick="switchTab('standings')" id="mNavStandings" class="text-amber-300 font-bold flex items-center gap-1"><i id="mNavIconStandings" class="fa-solid fa-ranking-star text-[11px]"></i> Standings</button>
+    <button onclick="switchTab('matches')" id="mNavMatches" class="text-stone-400 flex items-center gap-1"><i id="mNavIconMatches" class="fa-solid fa-book-open text-[11px]"></i> Matches</button>
+    <button onclick="switchTab('achievements')" id="mNavAchievements" class="text-stone-400 flex items-center gap-1"><i id="mNavIconAchievements" class="fa-solid fa-award text-[11px]"></i> Trophies</button>
+    <button onclick="switchTab('commanders')" id="mNavCommanders" class="text-stone-400 flex items-center gap-1"><i id="mNavIconCommanders" class="fa-solid fa-crown text-[11px]"></i> Meta</button>
+  </div>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6">
+
+    <!-- KPI Metric Banners -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+      <div class="p-4 rounded-2xl glass-panel flex items-center justify-between group hover:border-amber-400/40 transition">
+        <div>
+          <span id="kpiLabelGames" class="text-[10px] uppercase tracking-wider font-semibold text-stone-400 block">Total Games</span>
+          <span id="statTotalGames" class="text-xl sm:text-2xl font-black theme-heading text-white group-hover:text-amber-200 transition-colors">0</span>
+        </div>
+        <div id="kpiBoxGames" class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 shadow-inner group-hover:scale-105 transition-transform">
+          <i id="kpiIconGames" class="fa-solid fa-mug-saucer text-base"></i>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl glass-panel flex items-center justify-between group hover:border-stone-400/40 transition">
+        <div>
+          <span id="kpiLabelPlayers" class="text-[10px] uppercase tracking-wider font-semibold text-stone-400 block">Active Players</span>
+          <span id="statActivePlayers" class="text-xl sm:text-2xl font-black theme-heading text-white group-hover:text-stone-200 transition-colors">0</span>
+        </div>
+        <div id="kpiBoxPlayers" class="w-11 h-11 rounded-xl bg-stone-500/15 text-stone-300 flex items-center justify-center border border-stone-500/20 shadow-inner group-hover:scale-105 transition-transform">
+          <i id="kpiIconPlayers" class="fa-solid fa-users text-base"></i>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl glass-panel flex items-center justify-between group hover:border-orange-400/40 transition">
+        <div>
+          <span id="kpiLabelTrophies" class="text-[10px] uppercase tracking-wider font-semibold text-stone-400 block">Trophies Earned</span>
+          <span id="statUnlockedAchievements" class="text-xl sm:text-2xl font-black theme-heading text-white group-hover:text-orange-200 transition-colors">0</span>
+        </div>
+        <div id="kpiBoxTrophies" class="w-11 h-11 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center border border-orange-500/20 shadow-inner group-hover:scale-105 transition-transform">
+          <i id="kpiIconTrophies" class="fa-solid fa-award text-base"></i>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl glass-panel flex items-center justify-between group hover:border-amber-400/40 transition">
+        <div>
+          <span id="kpiLabelLeader" class="text-[10px] uppercase tracking-wider font-semibold text-stone-400 block">Table Leader</span>
+          <span id="statCurrentLeader" class="text-sm sm:text-base font-black theme-heading text-amber-300 truncate max-w-[110px] sm:max-w-[130px] block">—</span>
+        </div>
+        <div id="kpiBoxLeader" class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center border border-amber-500/20 shadow-inner group-hover:scale-105 transition-transform">
+          <i id="kpiIconLeader" class="fa-solid fa-mug-hot text-base"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- STANDINGS TAB -->
+    <div id="tabStandings" class="tab-content flex flex-col gap-4">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5">
+        <div>
+          <h2 class="theme-heading font-bold text-lg text-white flex items-center gap-2">
+            <i id="standingsHeadingIcon" class="fa-solid fa-ranking-star text-amber-400"></i>
+            <span id="standingsHeadingTitle">Season Leaderboard</span>
+          </h2>
+          <p id="standingsSubtitleText" class="text-xs text-stone-400 mt-0.5">Scoring: 1st Place = 4 pts • 2nd = 2 pts • 3rd = 1 pt • +1 pt per Achievement badge unlocked.</p>
+        </div>
+
+        <!-- Controls: Sub-League Switcher, Search & Actions -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- Sub-League Switcher -->
+          <div class="flex items-center bg-black/60 p-1 rounded-xl border border-white/10 shrink-0 shadow-inner">
+            <button onclick="setLeagueView('pod')" id="viewPodBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-200 border border-amber-500/30 flex items-center gap-1.5 transition">
+              <i id="viewPodIcon" class="fa-solid fa-mug-hot text-[10px]"></i>
+              <span id="viewPodLabel">Pods (3–4P)</span>
+            </button>
+            <button onclick="setLeagueView('duel')" id="viewDuelBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-stone-400 hover:text-white flex items-center gap-1.5 transition">
+              <i id="viewDuelIcon" class="fa-solid fa-fire-flame-curved text-[10px] text-orange-400"></i>
+              <span id="viewDuelLabel">1v1 Duels</span>
+            </button>
+          </div>
+
+          <!-- Search Filter for Players -->
+          <div class="relative">
+            <input type="text" id="playerSearchInput" oninput="renderStandings()" placeholder="Search player..." class="bg-black/50 border border-white/10 rounded-xl pl-7 pr-3 py-1.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-400 w-36 sm:w-44 transition">
+            <i class="fa-solid fa-magnifying-glass text-[10px] text-stone-500 absolute left-2.5 top-2.5 pointer-events-none"></i>
+          </div>
+
+          <div class="flex items-center gap-1.5">
+            <button onclick="promptClearSampleData()" class="px-3 py-1.5 rounded-xl text-xs font-semibold glass-panel hover:border-rose-400/40 text-stone-400 hover:text-rose-300 transition flex items-center gap-1.5" title="Clear Sample Demo Players & Games">
+              <i class="fa-solid fa-broom text-xs"></i>
+              <span class="hidden sm:inline">Reset</span>
+            </button>
+            <button onclick="openPlayerModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold glass-panel border-amber-500/30 text-amber-200 hover:bg-amber-500/10 transition flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-user-plus text-amber-400"></i>
+              <span>Add Player</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto glass-panel rounded-2xl shadow-xl border border-white/10">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr id="standingsTableHeaderRow" class="border-b border-white/10 bg-black/40 text-stone-400 font-semibold uppercase tracking-wider text-[11px]">
+              <!-- Dynamic header populated in renderStandings -->
+            </tr>
+          </thead>
+          <tbody id="standingsTableBody" class="divide-y divide-white/5">
+            <!-- Dynamic rows injected here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MATCHES TAB -->
+    <div id="tabMatches" class="tab-content hidden flex-col gap-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="theme-heading font-bold text-lg text-white flex items-center gap-2">
+            <i id="matchesHeadingIcon" class="fa-solid fa-book-open text-amber-400"></i>
+            <span id="matchesHeadingTitle">Match Chronicle</span>
+          </h2>
+          <p class="text-xs text-stone-400 mt-0.5">Every registered battle, victor, pod member, and game night highlight.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <div class="flex items-center bg-black/60 p-1 rounded-xl border border-white/10 text-xs">
+            <button onclick="filterMatchHistory('all')" id="mfAllBtn" class="px-3 py-1 rounded-lg font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">All</button>
+            <button onclick="filterMatchHistory('pod')" id="mfPodBtn" class="px-3 py-1 rounded-lg text-stone-400 hover:text-white">Pods</button>
+            <button onclick="filterMatchHistory('duel')" id="mfDuelBtn" class="px-3 py-1 rounded-lg text-stone-400 hover:text-white">1v1s</button>
+          </div>
+          <button onclick="openLogGameModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold theme-btn-primary flex items-center gap-1.5">
+            <i class="fa-solid fa-plus text-xs"></i> Record Game
+          </button>
+        </div>
+      </div>
+
+      <div id="matchLogContainer" class="flex flex-col gap-3">
+        <!-- Injected match cards -->
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS TAB -->
+    <div id="tabAchievements" class="tab-content hidden flex-col gap-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h2 class="theme-heading font-bold text-lg text-white flex items-center gap-2">
+            <i id="achievementsHeadingIcon" class="fa-solid fa-award text-amber-400"></i>
+            <span id="achievementsHeadingTitle">Playgroup Hall of Trophies</span>
+          </h2>
+          <p class="text-xs text-stone-400 mt-0.5">16 distinct in-game badges earned during match night. Each grants +1 bonus league point.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 font-bold">
+            16 Trophies Active
+          </span>
+        </div>
+      </div>
+
+      <div id="achievementsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <!-- Injected 16 achievement cards -->
+      </div>
+    </div>
+
+    <!-- META / COMMANDERS TAB -->
+    <div id="tabCommanders" class="tab-content hidden flex-col gap-4">
+      <div>
+        <h2 class="theme-heading font-bold text-lg text-white flex items-center gap-2">
+          <i id="commandersHeadingIcon" class="fa-solid fa-crown text-amber-400"></i>
+          <span id="commandersHeadingTitle">Commander & Meta Breakdown</span>
+        </h2>
+        <p class="text-xs text-stone-400 mt-0.5">Most played and highest win-rate commanders piloted across the league.</p>
+      </div>
+
+      <div id="commandersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <!-- Injected commander cards -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: LOG GAME -->
+  <div id="logGameModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+        <h3 class="theme-heading font-bold text-base text-white flex items-center gap-2">
+          <i class="fa-solid fa-dice-d20 text-amber-400"></i> Record League Match
+        </h3>
+        <button onclick="closeLogGameModal()" class="w-8 h-8 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-5 text-xs">
+        <div>
+          <label class="block uppercase tracking-wider font-semibold text-stone-400 mb-2">Game Format</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="setLogMatchType('pod4')" id="lmPod4Btn" class="py-2 rounded-xl font-bold bg-amber-500/20 text-amber-200 border border-amber-500/40">4-Player Pod</button>
+            <button onclick="setLogMatchType('pod3')" id="lmPod3Btn" class="py-2 rounded-xl font-semibold bg-white/5 border border-white/10 text-stone-300">3-Player Pod</button>
+            <button onclick="setLogMatchType('duel')" id="lmDuelBtn" class="py-2 rounded-xl font-semibold bg-white/5 border border-white/10 text-stone-300">1v1 Duel</button>
+          </div>
+        </div>
+
+        <div id="matchSeatsContainer" class="flex flex-col gap-3">
+          <!-- Dynamically populated seats -->
+        </div>
+
+        <div>
+          <label class="block uppercase tracking-wider font-semibold text-stone-400 mb-1">Game Notes / Memorable Moment</label>
+          <input type="text" id="matchNotesInput" placeholder="e.g. Turn 6 infinite combo or epic comeback over coffee" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-400">
+        </div>
+      </div>
+
+      <div class="px-6 py-4 border-t border-white/10 flex items-center justify-between bg-black/40">
+        <button onclick="closeLogGameModal()" class="px-4 py-2 rounded-xl font-semibold text-stone-400 hover:text-white">Cancel</button>
+        <button onclick="saveLoggedMatch()" class="px-5 py-2.5 rounded-xl font-bold theme-btn-primary shadow-lg">Save Match Result</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: ADD PLAYER -->
+  <div id="addPlayerModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+        <h3 class="theme-heading font-bold text-sm text-white">Add New Player</h3>
+        <button onclick="closePlayerModal()" class="w-7 h-7 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <div class="p-5 flex flex-col gap-4">
+        <div>
+          <label class="block text-[11px] font-semibold uppercase text-stone-400 mb-1">Player Name</label>
+          <input type="text" id="newPlayerNameInput" placeholder="e.g. Jesse" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+        </div>
+        <button onclick="saveNewPlayer()" class="w-full py-2.5 rounded-xl text-xs font-bold theme-btn-primary">Add to League</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT LEAGUE TITLE -->
+  <div id="editLeagueTitleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+        <h3 class="theme-heading font-bold text-sm text-white flex items-center gap-2">
+          <i class="fa-solid fa-pen-to-square text-amber-400"></i> Rename League
+        </h3>
+        <button onclick="closeEditLeagueTitleModal()" class="w-7 h-7 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <div class="p-5 flex flex-col gap-4">
+        <div>
+          <label class="block text-[11px] font-semibold uppercase text-stone-400 mb-1">League Name</label>
+          <input type="text" id="leagueTitleInput" placeholder="POD LEAGUE" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+        </div>
+        <button onclick="saveLeagueTitle()" class="w-full py-2.5 rounded-xl text-xs font-bold theme-btn-primary">Save League Name</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT SEASON -->
+  <div id="editSeasonModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+        <h3 class="theme-heading font-bold text-sm text-white flex items-center gap-2">
+          <i class="fa-solid fa-pen-to-square text-amber-400"></i> Rename Season
+        </h3>
+        <button onclick="closeEditSeasonModal()" class="w-7 h-7 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <div class="p-5 flex flex-col gap-4">
+        <div>
+          <label class="block text-[11px] font-semibold uppercase text-stone-400 mb-1">Season Title</label>
+          <input type="text" id="seasonNameInput" placeholder="Season 1: Morning Roast" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+        </div>
+        <button onclick="saveSeasonName()" class="w-full py-2.5 rounded-xl text-xs font-bold theme-btn-primary">Save Season Title</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CONFIRM ACTION -->
+  <div id="confirmActionModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="glass-panel border border-rose-500/30 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 flex flex-col items-center text-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 id="confirmModalTitle" class="theme-heading font-bold text-base text-white">Confirm Action</h3>
+        <p id="confirmModalDesc" class="text-xs text-stone-300">Are you sure you want to proceed?</p>
+      </div>
+      <div class="px-5 py-3 border-t border-white/10 flex items-center justify-end gap-2 bg-black/40">
+        <button onclick="closeConfirmModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-stone-400 hover:text-white">Cancel</button>
+        <button id="confirmExecuteBtn" onclick="executePendingConfirmAction()" class="px-4 py-1.5 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-md">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PLAYER DOSSIER -->
+  <div id="playerDossierModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div id="dossierAvatar" class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-200 theme-heading font-bold text-base flex items-center justify-center border border-amber-500/30">?</div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 id="dossierPlayerName" class="theme-heading font-bold text-base text-white">Player Profile</h3>
+              <span id="dossierRankBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white/10 text-stone-300">#1 Seed</span>
+            </div>
+            <span id="dossierFavoriteCommander" class="text-xs text-amber-300/80">Signature Leader</span>
+          </div>
+        </div>
+        <button onclick="closePlayerDossier()" class="w-8 h-8 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+      <div class="p-6 flex-1 overflow-y-auto flex flex-col gap-5 text-xs">
+        
+        <!-- Special Commendations Box -->
+        <div id="dossierCommendationsSection" class="p-3 rounded-xl bg-white/5 border border-white/10 flex flex-wrap gap-2 items-center">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 mr-1">Honors:</span>
+          <div id="dossierCommendationBadges" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex flex-col gap-1">
+            <span class="text-[10px] uppercase font-bold text-stone-400 flex items-center gap-1.5">
+              <i id="dossierPodIcon" class="fa-solid fa-mug-hot text-amber-400"></i> Pod Record (3–4P)
+            </span>
+            <span id="dossierPodRecord" class="theme-heading font-bold text-base text-white">0W / 0G (0%)</span>
+            <span id="dossierPodPoints" class="text-[11px] text-amber-300">0 Pod Points</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex flex-col gap-1">
+            <span class="text-[10px] uppercase font-bold text-stone-400 flex items-center gap-1.5">
+              <i id="dossierDuelIcon" class="fa-solid fa-fire-flame-curved text-orange-400"></i> 1v1 Duel Record
+            </span>
+            <span id="dossierDuelRecord" class="theme-heading font-bold text-base text-white">0W - 0L (0%)</span>
+            <span id="dossierDuelPoints" class="text-[11px] text-orange-300">0 Duel Points</span>
+          </div>
+        </div>
+
+        <div>
+          <span id="dossierTrophiesLabel" class="block uppercase tracking-wider font-semibold text-stone-400 mb-2 flex items-center gap-1.5">
+            <i id="dossierTrophyIcon" class="fa-solid fa-award text-amber-400"></i> Trophies Earned
+          </span>
+          <div id="dossierAchievementsList" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DATA & SHARE -->
+  <div id="dataModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-lg flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+        <h3 class="theme-heading font-bold text-sm text-white flex items-center gap-2">
+          <i class="fa-solid fa-share-nodes text-amber-400"></i> Share & Backup League Data
+        </h3>
+        <button onclick="closeDataModal()" class="w-7 h-7 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <div class="p-5 flex flex-col gap-4 text-xs">
+        <p class="text-stone-300">Save a backup file or share your entire league with friends using a single link.</p>
+        <button onclick="copyShareUrl()" class="w-full py-2.5 rounded-xl font-bold theme-btn-primary flex items-center justify-center gap-2">
+          <i class="fa-solid fa-link"></i> <span id="copyUrlLabel">Copy Shareable League Link</span>
+        </button>
+        <div class="flex items-center gap-2 pt-2 border-t border-white/10">
+          <button onclick="exportJsonFile()" class="flex-1 py-2 rounded-xl bg-white/5 border border-white/10 text-stone-300 hover:text-white font-semibold">Download .JSON</button>
+          <label class="flex-1 py-2 rounded-xl bg-white/5 border border-white/10 text-stone-300 hover:text-white font-semibold text-center cursor-pointer">
+            <span>Import .JSON</span>
+            <input type="file" accept=".json" onchange="importJsonFile(event)" class="hidden">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: LIVE CLOUD SYNC DETAILS -->
+  <div id="cloudConfigModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-md flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+        <h3 class="theme-heading font-bold text-sm text-white flex items-center gap-2">
+          <i class="fa-solid fa-cloud text-amber-400"></i> Live Playgroup Cloud Sync
+        </h3>
+        <button onclick="closeCloudConfigModal()" class="w-7 h-7 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <div class="p-5 flex flex-col gap-4 text-xs text-stone-300">
+        <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-stone-400 uppercase tracking-wider font-semibold text-[10px]">Sync Status</span>
+            <span id="cloudDetailStatus" class="font-bold text-stone-400 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-stone-500"></span> Local Mode
+            </span>
+          </div>
+          <div class="pt-2 border-t border-white/10 flex flex-col gap-1">
+            <span class="text-stone-400 text-[10px] uppercase font-semibold">Active User ID:</span>
+            <span id="fullUserIdDisplay" class="font-mono text-[11px] text-amber-300 break-all bg-black/60 p-2 rounded-lg border border-white/5 select-all">Local Guest</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[10px] font-semibold text-stone-400 uppercase tracking-wider">Custom Firebase Config (Optional for GitHub Pages):</label>
+          <textarea id="customFirebaseConfigInput" placeholder='Paste Firebase JSON config here to connect a live database...' class="w-full h-20 bg-black/50 border border-white/10 rounded-xl p-2.5 text-[11px] font-mono text-white placeholder-stone-600 focus:outline-none focus:border-amber-400 resize-none"></textarea>
+          <div class="flex items-center justify-end gap-2 mt-1">
+            <button onclick="saveCustomFirebaseConfig()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/30 transition">
+              Connect Database
+            </button>
+          </div>
+        </div>
+
+        <p class="text-stone-400 leading-relaxed text-[11px]">
+          In live mode, any match recorded or trophy earned instantly synchronizes across all playgroup phones in real time.
+        </p>
+        <button onclick="closeCloudConfigModal()" class="w-full py-2.5 rounded-xl text-xs font-bold theme-btn-primary">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Bar -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-16 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="px-4 py-3 rounded-xl glass-panel border-amber-500/40 shadow-2xl flex items-center gap-3 text-xs font-semibold text-white">
+      <div id="toastIcon" class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center text-xs">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <span id="toastMessage">Action completed!</span>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const THEMES = {
+      rustic_cafe: {
+        name: "Morning Roast",
+        icon: "fa-mug-hot",
+        color: "#d4a373",
+        winnerBadge: "1st ☕",
+        trophyIcon: "fa-award",
+        leaderLabel: "Table Leader",
+        kpiIcons: {
+          games: "fa-mug-saucer",
+          players: "fa-users",
+          trophies: "fa-award",
+          leader: "fa-mug-hot"
+        },
+        tabIcons: {
+          standings: "fa-ranking-star",
+          matches: "fa-book-open",
+          achievements: "fa-award",
+          commanders: "fa-crown"
+        },
+        subleague: {
+          podIcon: "fa-mug-hot",
+          podLabel: "Pods (3–4P)",
+          duelIcon: "fa-fire-flame-curved",
+          duelLabel: "1v1 Duels"
+        },
+        ranks: {
+          1: {
+            title: "Grand Champion",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-amber-700 via-amber-500 to-yellow-200 text-stone-950 inline-flex items-center justify-center font-black text-xs rank-glow-1",
+            innerHtml: '<i class="fa-solid fa-mug-hot text-[11px] text-stone-900"></i>',
+            rowHighlight: "bg-amber-500/[0.06] hover:bg-amber-500/[0.11]"
+          },
+          2: {
+            title: "Master Contender",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-stone-400 via-stone-200 to-amber-100 text-stone-950 inline-flex items-center justify-center font-bold text-xs rank-glow-2",
+            innerHtml: '<i class="fa-solid fa-shield text-[10px] text-stone-900"></i>',
+            rowHighlight: "hover:bg-white/[0.04]"
+          },
+          3: {
+            title: "Vanguard Bronze",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-amber-900 via-orange-800 to-amber-600 text-amber-100 inline-flex items-center justify-center font-bold text-xs rank-glow-3",
+            innerHtml: '<i class="fa-solid fa-medal text-[10px] text-amber-200"></i>',
+            rowHighlight: "hover:bg-white/[0.04]"
+          },
+          4: {
+            title: "Elite Cohort",
+            className: "w-7 h-7 rounded-full bg-stone-800 border border-stone-600 text-stone-300 inline-flex items-center justify-center font-bold text-xs rank-glow-4",
+            innerHtml: '4',
+            rowHighlight: "hover:bg-white/[0.03]"
+          },
+          5: {
+            title: "Elite Cohort",
+            className: "w-7 h-7 rounded-full bg-stone-800 border border-stone-600 text-stone-300 inline-flex items-center justify-center font-bold text-xs rank-glow-4",
+            innerHtml: '5',
+            rowHighlight: "hover:bg-white/[0.03]"
+          }
+        }
+      },
+      blind_eternities: {
+        name: "The Blind Eternities",
+        icon: "fa-infinity",
+        color: "#38bdf8",
+        winnerBadge: "1st 🌌",
+        trophyIcon: "fa-atom",
+        leaderLabel: "Void Titan",
+        kpiIcons: {
+          games: "fa-meteor",
+          players: "fa-circle-nodes",
+          trophies: "fa-atom",
+          leader: "fa-infinity"
+        },
+        tabIcons: {
+          standings: "fa-infinity",
+          matches: "fa-scroll",
+          achievements: "fa-atom",
+          commanders: "fa-eye"
+        },
+        subleague: {
+          podIcon: "fa-circle-nodes",
+          podLabel: "Pods (3–4P)",
+          duelIcon: "fa-bolt-lightning",
+          duelLabel: "Void Duels"
+        },
+        ranks: {
+          1: {
+            title: "Void Titan",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400 via-fuchsia-500 to-indigo-500 text-slate-950 inline-flex items-center justify-center font-black text-xs rank-glow-1",
+            innerHtml: '<i class="fa-solid fa-infinity text-[11px] text-white"></i>',
+            rowHighlight: "bg-cyan-500/[0.06] hover:bg-cyan-500/[0.11]"
+          },
+          2: {
+            title: "Astral Master",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-sky-400 via-indigo-400 to-slate-200 text-slate-950 inline-flex items-center justify-center font-bold text-xs rank-glow-2",
+            innerHtml: '<i class="fa-solid fa-atom text-[10px] text-slate-950"></i>',
+            rowHighlight: "hover:bg-white/[0.04]"
+          },
+          3: {
+            title: "Eldrazi Scion",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-purple-900 via-violet-700 to-indigo-500 text-cyan-200 inline-flex items-center justify-center font-bold text-xs rank-glow-3",
+            innerHtml: '<i class="fa-solid fa-circle-nodes text-[10px] text-cyan-200"></i>',
+            rowHighlight: "hover:bg-white/[0.04]"
+          },
+          4: {
+            title: "Cosmic Cohort",
+            className: "w-7 h-7 rounded-full bg-slate-900 border border-cyan-800 text-cyan-300 inline-flex items-center justify-center font-bold text-xs rank-glow-4",
+            innerHtml: '4',
+            rowHighlight: "hover:bg-white/[0.03]"
+          },
+          5: {
+            title: "Cosmic Cohort",
+            className: "w-7 h-7 rounded-full bg-slate-900 border border-cyan-800 text-cyan-300 inline-flex items-center justify-center font-bold text-xs rank-glow-4",
+            innerHtml: '5',
+            rowHighlight: "hover:bg-white/[0.03]"
+          }
+        }
+      },
+      mythic: {
+        name: "Mythic Gold",
+        icon: "fa-trophy",
+        color: "#f5c542",
+        winnerBadge: "1st 🏆",
+        trophyIcon: "fa-trophy",
+        leaderLabel: "Mythic Champion",
+        kpiIcons: {
+          games: "fa-dice-d20",
+          players: "fa-users",
+          trophies: "fa-trophy",
+          leader: "fa-crown"
+        },
+        tabIcons: {
+          standings: "fa-ranking-star",
+          matches: "fa-book-skull",
+          achievements: "fa-medal",
+          commanders: "fa-crown"
+        },
+        subleague: {
+          podIcon: "fa-crown",
+          podLabel: "Pods (3–4P)",
+          duelIcon: "fa-bolt",
+          duelLabel: "1v1 Duels"
+        },
+        ranks: {
+          1: {
+            title: "Grand Champion",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-200 text-stone-950 inline-flex items-center justify-center font-black text-xs rank-glow-1",
+            innerHtml: '<i class="fa-solid fa-crown text-[11px] text-stone-900"></i>',
+            rowHighlight: "bg-amber-500/[0.04] hover:bg-amber-500/[0.08]"
+          },
+          2: {
+            title: "Master Contender",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-slate-300 via-stone-200 to-white text-stone-900 inline-flex items-center justify-center font-bold text-xs rank-glow-2",
+            innerHtml: '<i class="fa-solid fa-shield-halved text-[10px] text-stone-900"></i>',
+            rowHighlight: "hover:bg-white/[0.04]"
+          },
+          3: {
+            title: "Vanguard Bronze",
+            className: "w-7 h-7 rounded-full bg-gradient-to-tr from-amber-700 via-orange-600 to-amber-500 text-white inline-flex items-center justify-center font-bold text-xs rank-glow-3",
+            innerHtml: '<i class="fa-solid fa-medal text-[10px] text-amber-100"></i>',
+            rowHighlight: "hover:bg-white/[0.04]"
+          },
+          4: {
+            title: "Arena Cohort",
+            className: "w-7 h-7 rounded-full bg-stone-900 border border-amber-800 text-amber-200 inline-flex items-center justify-center font-bold text-xs rank-glow-4",
+            innerHtml: '4',
+            rowHighlight: "hover:bg-white/[0.03]"
+          },
+          5: {
+            title: "Arena Cohort",
+            className: "w-7 h-7 rounded-full bg-stone-900 border border-amber-800 text-amber-200 inline-flex items-center justify-center font-bold text-xs rank-glow-4",
+            innerHtml: '5',
+            rowHighlight: "hover:bg-white/[0.03]"
+          }
+        }
+      }
+    };
+
+    // 16 ACHIEVEMENTS
+    const INITIAL_ACHIEVEMENTS = [
+      { id: "first_blood", title: "First Blood", icon: "fa-droplet", desc: "Dealt the very first combat damage of the match.", color: "text-amber-500", category: "Combat" },
+      { id: "nuclear_launch", title: "Nuclear Launch", icon: "fa-bomb", desc: "Dealt 50+ total damage in a single combat step or spell resolution.", color: "text-orange-400", category: "Power" },
+      { id: "long_live_king", title: "Long Live the King", icon: "fa-crown", desc: "Held the Monarch crown for 5 consecutive turn rotations.", color: "text-yellow-400", category: "Politics" },
+      { id: "clutch_survivor", title: "1 HP & A Dream", icon: "fa-shield-halved", desc: "Won the match after surviving at 5 or fewer life points.", color: "text-emerald-400", category: "Survival" },
+      { id: "salt_miner", title: "Salt Miner", icon: "fa-mortar-pestle", desc: "Resolved a board wipe, mass land destruction, or extra-turn loop.", color: "text-stone-300", category: "Chaos" },
+      { id: "mana_geyser", title: "Pure Ramp", icon: "fa-wand-magic-sparkles", desc: "Generated 10 or more mana in a single turn on or before turn 5.", color: "text-amber-300", category: "Ramp" },
+      { id: "colossal_finish", title: "Colossal Finish", icon: "fa-dragon", desc: "Eliminated two or more opponents in the exact same turn.", color: "text-orange-500", category: "Power" },
+      { id: "kamikaze", title: "Glorious Kamikaze", icon: "fa-burst", desc: "Forced a draw or eliminated an opponent by taking yourself out.", color: "text-rose-400", category: "Chaos" },
+      { id: "spellslinger", title: "Arcane Tempest", icon: "fa-bolt-lightning", desc: "Cast four or more non-creature spells in a single player turn.", color: "text-sky-400", category: "Spells" },
+      { id: "fortress_prime", title: "Fortress Prime", icon: "fa-chess-rook", desc: "Controlled ten or more non-token permanents simultaneously.", color: "text-indigo-400", category: "Board" },
+      { id: "silver_tongue", title: "Table Diplomat", icon: "fa-handshake", desc: "Convinced the pod to eliminate a rival without attacking them yourself.", color: "text-teal-400", category: "Politics" },
+      { id: "haste_assassin", title: "Lightning Strike", icon: "fa-forward-fast", desc: "Dealt fatal lethal combat damage using a creature with Haste on turn cast.", color: "text-red-400", category: "Combat" },
+      { id: "toxic_conspiracy", title: "Phyrexian Contagion", icon: "fa-biohazard", desc: "Accumulated 8 or more poison counters across all opponents.", color: "text-emerald-500", category: "Poison" },
+      { id: "graveyard_gourmet", title: "Graveyard Gourmet", icon: "fa-skull", desc: "Reanimated or cast five or more cards from graveyards in one game.", color: "text-purple-400", category: "Graveyard" },
+      { id: "commander_tax_tycoon", title: "Tax Tycoon", icon: "fa-scale-unbalanced-flip", desc: "Paid 8 or more extra mana in commander tax and still won the game.", color: "text-yellow-500", category: "Survival" },
+      { id: "chaos_gremlin", title: "Chaos Gremlin", icon: "fa-dice-d20", desc: "Resolved three or more coin flips or dice rolls in a single turn.", color: "text-fuchsia-400", category: "Chaos" }
+    ];
+
+    const DEFAULT_DATA = {
+      leagueTitle: "POD LEAGUE",
+      seasonName: "Season 1: Coffeehouse Pod",
+      players: [
+        { id: "p1", name: "Marcus", favoriteCommander: "Zhulodok, Void Gorger", achievements: ["first_blood", "nuclear_launch", "mana_geyser", "spellslinger"] },
+        { id: "p2", name: "Sarah", favoriteCommander: "Atraxa, Praetors' Voice", achievements: ["long_live_king", "salt_miner", "toxic_conspiracy"] },
+        { id: "p3", name: "Alex", favoriteCommander: "Krenko, Mob Boss", achievements: ["first_blood", "haste_assassin", "colossal_finish"] },
+        { id: "p4", name: "Dave", favoriteCommander: "Yuriko, the Tiger's Shadow", achievements: ["clutch_survivor", "silver_tongue"] }
+      ],
+      matches: [
+        {
+          id: "m1",
+          date: new Date(Date.now() - 86400000 * 3).toISOString(),
+          type: "pod",
+          notes: "Morning coffee duel escalated when Zhulodok double cascaded on Turn 7.",
+          results: [
+            { playerId: "p1", commander: "Zhulodok, Void Gorger", place: 1, achievements: ["nuclear_launch", "mana_geyser"] },
+            { playerId: "p2", commander: "Atraxa", place: 2, achievements: ["long_live_king"] },
+            { playerId: "p4", commander: "Yuriko", place: 3, achievements: [] },
+            { playerId: "p3", commander: "Krenko", place: 4, achievements: ["first_blood"] }
+          ]
+        },
+        {
+          id: "m2",
+          date: new Date(Date.now() - 86400000 * 1).toISOString(),
+          type: "duel",
+          notes: "Quick 1v1 duel over a fresh espresso.",
+          results: [
+            { playerId: "p3", commander: "Krenko", place: 1, achievements: ["haste_assassin"] },
+            { playerId: "p1", commander: "Zhulodok", place: 2, achievements: [] }
+          ]
+        }
+      ]
+    };
+
+    const state = {
+      activeTheme: localStorage.getItem('pod_league_theme') || 'rustic_cafe',
+      currentTab: 'standings',
+      leagueView: 'pod',
+      matchFilter: 'all',
+      logMatchType: 'pod4',
+      soundEnabled: true,
+      pendingConfirmAction: null,
+      data: loadStoredData()
+    };
+
+    // Firebase & Cloud State Management
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'pod-league-default';
+    let app = null;
+    let auth = null;
+    let db = null;
+    let currentUser = null;
+    let currentUserId = 'anonymous-player';
+    let isCloudSynced = false;
+
+    function getActiveFirebaseConfig() {
+      if (typeof __firebase_config !== 'undefined') {
+        try { return JSON.parse(__firebase_config); } catch (e) {}
+      }
+      const savedConfig = localStorage.getItem('pod_league_custom_firebase_config');
+      if (savedConfig) {
+        try { return JSON.parse(savedConfig); } catch (e) {}
+      }
+      return null;
+    }
+
+    async function initCloudSync() {
+      const config = getActiveFirebaseConfig();
+      if (!config) {
+        updateCloudStatusBadge(false, "Local Mode");
+        return;
+      }
+
+      try {
+        app = initializeApp(config);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          const cred = await signInWithCustomToken(auth, __initial_auth_token);
+          currentUser = cred.user;
+        } else {
+          const cred = await signInAnonymously(auth);
+          currentUser = cred.user;
+        }
+
+        currentUserId = currentUser?.uid || crypto.randomUUID();
+        const fullIdEl = document.getElementById('fullUserIdDisplay');
+        if (fullIdEl) fullIdEl.textContent = currentUserId;
+
+        updateCloudStatusBadge(true, "Live Sync");
+        startRealtimeListener();
+      } catch (err) {
+        console.warn("Cloud sync initialized in local fallback mode:", err);
+        updateCloudStatusBadge(false, "Local Mode");
+      }
+    }
+
+    function startRealtimeListener() {
+      if (!currentUser || !db) return;
+      const leagueDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'league_data', 'active_league');
+
+      onSnapshot(leagueDocRef, (snap) => {
+        if (snap.exists()) {
+          const remote = snap.data();
+          try {
+            state.data = {
+              leagueTitle: remote.leagueTitle || state.data.leagueTitle || "POD LEAGUE",
+              seasonName: remote.seasonName || state.data.seasonName,
+              players: remote.players ? JSON.parse(remote.players) : [],
+              matches: remote.matches ? JSON.parse(remote.matches) : []
+            };
+            isCloudSynced = true;
+            updateCloudStatusBadge(true, "Live Sync");
+            renderStandings();
+            renderMatchLog();
+            renderAchievements();
+            renderCommanders();
+          } catch (e) {
+            console.error("Error parsing remote payload:", e);
+          }
+        } else {
+          persistData();
+        }
+      }, (error) => {
+        console.warn("Realtime sync warning:", error);
+        updateCloudStatusBadge(false, "Local Mode");
+      });
+    }
+
+    function updateCloudStatusBadge(online, text) {
+      const dot = document.getElementById('cloudStatusDot');
+      const textEl = document.getElementById('cloudStatusText');
+      const detailEl = document.getElementById('cloudDetailStatus');
+      if (dot) {
+        dot.className = `w-2 h-2 rounded-full ${online ? 'bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]' : 'bg-stone-500'}`;
+      }
+      if (textEl) textEl.textContent = text;
+      if (detailEl) {
+        detailEl.className = `font-bold ${online ? 'text-emerald-400' : 'text-stone-400'} flex items-center gap-1.5`;
+        detailEl.innerHTML = `<span class="w-2 h-2 rounded-full ${online ? 'bg-emerald-400' : 'bg-stone-500'}"></span> ${online ? 'Connected & Live' : 'Local / Offline'}`;
+      }
+    }
+
+    async function persistData() {
+      // 1. Local fallback storage
+      try {
+        localStorage.setItem('pod_league_mtg_data', JSON.stringify(state.data));
+      } catch (e) {
+        console.error("Local storage error:", e);
+      }
+
+      // 2. Cloud database push if connected
+      if (currentUser && db) {
+        try {
+          const leagueDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'league_data', 'active_league');
+          await setDoc(leagueDocRef, {
+            leagueTitle: state.data.leagueTitle || "POD LEAGUE",
+            seasonName: state.data.seasonName || "Season 1: Coffeehouse Pod",
+            players: JSON.stringify(state.data.players || []),
+            matches: JSON.stringify(state.data.matches || []),
+            updatedAt: Date.now(),
+            updatedBy: currentUserId
+          });
+          updateCloudStatusBadge(true, "Live Synced");
+        } catch (err) {
+          console.warn("Cloud push deferred:", err);
+          updateCloudStatusBadge(false, "Sync Pending");
+        }
+      }
+    }
+
+    function openCloudConfigModal() {
+      const modal = document.getElementById('cloudConfigModal');
+      const input = document.getElementById('customFirebaseConfigInput');
+      const savedConfig = localStorage.getItem('pod_league_custom_firebase_config');
+      if (input && savedConfig) input.value = savedConfig;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeCloudConfigModal() {
+      const modal = document.getElementById('cloudConfigModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveCustomFirebaseConfig() {
+      const input = document.getElementById('customFirebaseConfigInput');
+      const val = input ? input.value.trim() : '';
+      if (!val) {
+        localStorage.removeItem('pod_league_custom_firebase_config');
+        showToast('Reset to local mode', 'fa-info');
+        updateCloudStatusBadge(false, 'Local Mode');
+        closeCloudConfigModal();
+        return;
+      }
+      try {
+        JSON.parse(val);
+        localStorage.setItem('pod_league_custom_firebase_config', val);
+        showToast('Connecting database...', 'fa-rotate');
+        closeCloudConfigModal();
+        initCloudSync();
+      } catch (e) {
+        showToast('Invalid JSON config format', 'fa-triangle-exclamation');
+      }
+    }
+
+    function loadStoredData() {
+      try {
+        const hash = window.location.hash;
+        if (hash && hash.startsWith('#data=')) {
+          const raw = decodeURIComponent(atob(hash.substring(6)));
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.players) return parsed;
+        }
+        const local = localStorage.getItem('pod_league_mtg_data');
+        if (local) return JSON.parse(local);
+      } catch (e) {
+        console.warn('Fallback to default dataset:', e);
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+
+    function setAppTheme(themeKey) {
+      if (!THEMES[themeKey]) themeKey = 'rustic_cafe';
+      state.activeTheme = themeKey;
+      localStorage.setItem('pod_league_theme', themeKey);
+      document.documentElement.setAttribute('data-theme', themeKey);
+
+      const themeObj = THEMES[themeKey];
+
+      const label = document.getElementById('activeThemeLabel');
+      if (label) label.textContent = themeObj.name;
+
+      const brandIcon = document.getElementById('brandIcon');
+      if (brandIcon) {
+        brandIcon.className = `fa-solid ${themeObj.icon} text-lg`;
+        brandIcon.style.color = themeObj.color;
+      }
+
+      document.querySelectorAll('.theme-check-icon').forEach(icon => {
+        const matches = icon.getAttribute('data-theme') === themeKey;
+        icon.classList.toggle('hidden', !matches);
+      });
+
+      const kpiGames = document.getElementById('kpiIconGames');
+      const kpiPlayers = document.getElementById('kpiIconPlayers');
+      const kpiTrophies = document.getElementById('kpiIconTrophies');
+      const kpiLeader = document.getElementById('kpiIconLeader');
+      const kpiLeaderLabel = document.getElementById('kpiLabelLeader');
+
+      if (kpiGames) kpiGames.className = `fa-solid ${themeObj.kpiIcons.games} text-base`;
+      if (kpiPlayers) kpiPlayers.className = `fa-solid ${themeObj.kpiIcons.players} text-base`;
+      if (kpiTrophies) kpiTrophies.className = `fa-solid ${themeObj.kpiIcons.trophies} text-base`;
+      if (kpiLeader) kpiLeader.className = `fa-solid ${themeObj.kpiIcons.leader} text-base`;
+      if (kpiLeaderLabel) kpiLeaderLabel.textContent = themeObj.leaderLabel;
+
+      const nStandings = document.getElementById('navIconStandings');
+      const nMatches = document.getElementById('navIconMatches');
+      const nAch = document.getElementById('navIconAchievements');
+      const nCmd = document.getElementById('navIconCommanders');
+      if (nStandings) nStandings.className = `fa-solid ${themeObj.tabIcons.standings}`;
+      if (nMatches) nMatches.className = `fa-solid ${themeObj.tabIcons.matches}`;
+      if (nAch) nAch.className = `fa-solid ${themeObj.tabIcons.achievements}`;
+      if (nCmd) nCmd.className = `fa-solid ${themeObj.tabIcons.commanders}`;
+
+      const mnStandings = document.getElementById('mNavIconStandings');
+      const mnMatches = document.getElementById('mNavIconMatches');
+      const mnAch = document.getElementById('mNavIconAchievements');
+      const mnCmd = document.getElementById('mNavIconCommanders');
+      if (mnStandings) mnStandings.className = `fa-solid ${themeObj.tabIcons.standings} text-[11px]`;
+      if (mnMatches) mnMatches.className = `fa-solid ${themeObj.tabIcons.matches} text-[11px]`;
+      if (mnAch) mnAch.className = `fa-solid ${themeObj.tabIcons.achievements} text-[11px]`;
+      if (mnCmd) mnCmd.className = `fa-solid ${themeObj.tabIcons.commanders} text-[11px]`;
+
+      const vPodIcon = document.getElementById('viewPodIcon');
+      const vPodLabel = document.getElementById('viewPodLabel');
+      const vDuelIcon = document.getElementById('viewDuelIcon');
+      const vDuelLabel = document.getElementById('viewDuelLabel');
+      if (vPodIcon) vPodIcon.className = `fa-solid ${themeObj.subleague.podIcon} text-[10px]`;
+      if (vPodLabel) vPodLabel.textContent = themeObj.subleague.podLabel;
+      if (vDuelIcon) vDuelIcon.className = `fa-solid ${themeObj.subleague.duelIcon} text-[10px] text-orange-400`;
+      if (vDuelLabel) vDuelLabel.textContent = themeObj.subleague.duelLabel;
+
+      const sHIcon = document.getElementById('standingsHeadingIcon');
+      const mHIcon = document.getElementById('matchesHeadingIcon');
+      const aHIcon = document.getElementById('achievementsHeadingIcon');
+      const cHIcon = document.getElementById('commandersHeadingIcon');
+      if (sHIcon) sHIcon.className = `fa-solid ${themeObj.tabIcons.standings} text-amber-400`;
+      if (mHIcon) mHIcon.className = `fa-solid ${themeObj.tabIcons.matches} text-amber-400`;
+      if (aHIcon) aHIcon.className = `fa-solid ${themeObj.tabIcons.achievements} text-amber-400`;
+      if (cHIcon) cHIcon.className = `fa-solid ${themeObj.tabIcons.commanders} text-amber-400`;
+
+      const dPodIcon = document.getElementById('dossierPodIcon');
+      const dDuelIcon = document.getElementById('dossierDuelIcon');
+      const dTrophyIcon = document.getElementById('dossierTrophyIcon');
+      if (dPodIcon) dPodIcon.className = `fa-solid ${themeObj.subleague.podIcon} text-amber-400`;
+      if (dDuelIcon) dDuelIcon.className = `fa-solid ${themeObj.subleague.duelIcon} text-orange-400`;
+      if (dTrophyIcon) dTrophyIcon.className = `fa-solid ${themeObj.trophyIcon} text-amber-400`;
+
+      const menu = document.getElementById('themeDropdownMenu');
+      if (menu) menu.classList.add('hidden');
+
+      playChime('click');
+      renderStandings();
+      renderMatchLog();
+      renderAchievements();
+      renderCommanders();
+    }
+
+    function toggleThemeDropdown() {
+      const menu = document.getElementById('themeDropdownMenu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', (e) => {
+      const btn = document.getElementById('themeDropdownBtn');
+      const menu = document.getElementById('themeDropdownMenu');
+      if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    let audioCtx = null;
+    function playChime(kind = 'click') {
+      if (!state.soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (kind === 'win') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(480, now + 0.08);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        }
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      const btn = document.getElementById('soundToggleBtn');
+      if (btn) btn.innerHTML = `<i class="fa-solid fa-volume-${state.soundEnabled ? 'high' : 'xmark'} text-xs"></i>`;
+    }
+
+    function showToast(message, icon = 'fa-check') {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMessage');
+      const iconEl = document.getElementById('toastIcon');
+      if (!toast || !msgEl) return;
+
+      msgEl.textContent = message;
+      if (iconEl) iconEl.innerHTML = `<i class="fa-solid ${icon}"></i>`;
+
+      toast.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+      }, 3000);
+    }
+
+    function getThemeAccentClasses() {
+      if (state.activeTheme === 'blind_eternities') {
+        return { text: 'text-cyan-300', bg: 'bg-cyan-500/20', border: 'border-cyan-500/30' };
+      } else if (state.activeTheme === 'mythic') {
+        return { text: 'text-amber-300', bg: 'bg-amber-500/20', border: 'border-amber-500/30' };
+      } else {
+        return { text: 'text-amber-200', bg: 'bg-amber-500/20', border: 'border-amber-500/30' };
+      }
+    }
+
+    function switchTab(tabId) {
+      state.currentTab = tabId;
+      playChime('click');
+
+      const accents = getThemeAccentClasses();
+
+      ['standings', 'matches', 'achievements', 'commanders'].forEach(t => {
+        const content = document.getElementById(`tab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        const nav = document.getElementById(`nav${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        const mNav = document.getElementById(`mNav${t.charAt(0).toUpperCase() + t.slice(1)}`);
+
+        if (content) content.classList.toggle('hidden', t !== tabId);
+
+        if (nav) {
+          if (t === tabId) {
+            nav.className = `px-3.5 py-1.5 rounded-lg ${accents.bg} ${accents.text} border ${accents.border} flex items-center gap-1.5 transition`;
+          } else {
+            nav.className = 'px-3.5 py-1.5 rounded-lg text-stone-400 hover:text-white flex items-center gap-1.5 transition';
+          }
+        }
+
+        if (mNav) {
+          if (t === tabId) {
+            mNav.className = `${accents.text} font-bold flex items-center gap-1`;
+          } else {
+            mNav.className = 'text-stone-400 flex items-center gap-1';
+          }
+        }
+      });
+
+      if (tabId === 'standings') renderStandings();
+      if (tabId === 'matches') renderMatchLog();
+      if (tabId === 'achievements') renderAchievements();
+      if (tabId === 'commanders') renderCommanders();
+    }
+
+    function setLeagueView(view) {
+      state.leagueView = view;
+      playChime('click');
+      const podBtn = document.getElementById('viewPodBtn');
+      const duelBtn = document.getElementById('viewDuelBtn');
+      const subText = document.getElementById('standingsSubtitleText');
+      const accents = getThemeAccentClasses();
+
+      if (view === 'pod') {
+        if (podBtn) podBtn.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold ${accents.bg} ${accents.text} border ${accents.border} flex items-center gap-1.5 transition`;
+        if (duelBtn) duelBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-stone-400 hover:text-white flex items-center gap-1.5 transition';
+        if (subText) subText.textContent = 'Scoring: 1st Place = 4 pts • 2nd = 2 pts • 3rd = 1 pt • +1 pt per Achievement badge unlocked.';
+      } else {
+        if (podBtn) podBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-stone-400 hover:text-white flex items-center gap-1.5 transition';
+        if (duelBtn) duelBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-orange-500/20 text-orange-300 border border-orange-500/30 flex items-center gap-1.5 transition';
+        if (subText) subText.textContent = 'Scoring: 1v1 Victory = 2 pts • Defeat = 0 pts • +1 pt per Achievement badge unlocked.';
+      }
+      renderStandings();
+    }
+
+    function getCommendationsForPlayer(player, allComputed) {
+      const badges = [];
+      if (!player) return badges;
+
+      const eligibleWinRates = allComputed.filter(p => (state.leagueView === 'duel' ? p.duelGames : p.podGames) >= 2);
+      if (eligibleWinRates.length > 0) {
+        const topRate = Math.max(...eligibleWinRates.map(p => state.leagueView === 'duel' ? p.duelWinRate : p.podWinRate));
+        const currentRate = state.leagueView === 'duel' ? player.duelWinRate : player.podWinRate;
+        const currentGames = state.leagueView === 'duel' ? player.duelGames : player.podGames;
+        if (currentGames >= 2 && currentRate === topRate && topRate > 0) {
+          badges.push({ name: "Apex Hunter", icon: "fa-crosshairs", color: "text-rose-400 bg-rose-500/10 border-rose-500/30", title: "Highest Win Rate in League" });
+        }
+      }
+
+      const topTrophies = Math.max(...allComputed.map(p => p.trophiesCount));
+      if (player.trophiesCount > 0 && player.trophiesCount === topTrophies) {
+        badges.push({ name: "Trophy Collector", icon: "fa-trophy", color: "text-amber-300 bg-amber-500/10 border-amber-500/30", title: "Most Achievements Unlocked" });
+      }
+
+      const topGames = Math.max(...allComputed.map(p => p.podGames + p.duelGames));
+      if ((player.podGames + player.duelGames) > 0 && (player.podGames + player.duelGames) === topGames) {
+        badges.push({ name: "Iron Veteran", icon: "fa-shield-halved", color: "text-sky-300 bg-sky-500/10 border-sky-500/30", title: "Most Matches Fought" });
+      }
+
+      return badges;
+    }
+
+    function renderStandings() {
+      const tbody = document.getElementById('standingsTableBody');
+      const headerRow = document.getElementById('standingsTableHeaderRow');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const isDuel = state.leagueView === 'duel';
+      const searchVal = (document.getElementById('playerSearchInput')?.value || '').toLowerCase().trim();
+      const accents = getThemeAccentClasses();
+      const currentThemeObj = THEMES[state.activeTheme] || THEMES.rustic_cafe;
+
+      // Update League Title and Season Title
+      const leagueTitleEl = document.getElementById('leagueTitleDisplay');
+      if (leagueTitleEl) leagueTitleEl.textContent = state.data.leagueTitle || 'POD LEAGUE';
+
+      const seasonBadge = document.getElementById('seasonBadge');
+      if (seasonBadge) seasonBadge.textContent = state.data.seasonName || 'Season 1: Coffeehouse Pod';
+
+      const trophyHeaderIcon = `<i class="fa-solid ${currentThemeObj.trophyIcon} text-[10px] mr-1"></i>`;
+
+      if (headerRow) {
+        headerRow.innerHTML = isDuel ? `
+          <th class="py-3.5 px-4 text-center w-14">Rank</th>
+          <th class="py-3.5 px-4">Player & Honors</th>
+          <th class="py-3.5 px-3 text-center">Duels</th>
+          <th class="py-3.5 px-3 text-center text-emerald-400">Wins</th>
+          <th class="py-3.5 px-3 text-center text-rose-400">Losses</th>
+          <th class="py-3.5 px-3 text-center">Win %</th>
+          <th class="py-3.5 px-3 text-center">${trophyHeaderIcon}Trophies</th>
+          <th class="py-3.5 px-4 text-right font-bold ${accents.text}">Duel Points</th>
+          <th class="py-3.5 px-3 text-center w-10"></th>
+        ` : `
+          <th class="py-3.5 px-4 text-center w-14">Rank</th>
+          <th class="py-3.5 px-4">Player & Honors</th>
+          <th class="py-3.5 px-3 text-center">Games</th>
+          <th class="py-3.5 px-3 text-center text-emerald-400">Wins (1st)</th>
+          <th class="py-3.5 px-3 text-center">Win %</th>
+          <th class="py-3.5 px-3 text-center">Podiums</th>
+          <th class="py-3.5 px-3 text-center">${trophyHeaderIcon}Trophies</th>
+          <th class="py-3.5 px-4 text-right font-bold ${accents.text}">Total Points</th>
+          <th class="py-3.5 px-3 text-center w-10"></th>
+        `;
+      }
+
+      if (state.data.players.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="py-12 text-center text-stone-400 text-xs">
+              <div class="flex flex-col items-center gap-2">
+                <i class="fa-solid ${currentThemeObj.icon} text-2xl text-stone-600"></i>
+                <p>No players recorded at the table yet.</p>
+                <button onclick="openPlayerModal()" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-200 border border-amber-500/30 font-semibold transition mt-1">
+                  Add Your First Player
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+        document.getElementById('statTotalGames').textContent = `${state.data.matches.length}`;
+        document.getElementById('statActivePlayers').textContent = '0';
+        document.getElementById('statCurrentLeader').textContent = '—';
+        document.getElementById('statUnlockedAchievements').textContent = '0';
+        return;
+      }
+
+      const computedPlayers = state.data.players.map(player => {
+        let podGames = 0, podWins = 0, podSeconds = 0, podThirds = 0, podPoints = 0;
+        let duelGames = 0, duelWins = 0, duelLosses = 0, duelPoints = 0;
+
+        state.data.matches.forEach(m => {
+          const matchIsDuel = m.type === 'duel' || m.results.length === 2;
+          const userResult = m.results.find(r => r.playerId === player.id);
+          if (userResult) {
+            const achPts = (userResult.achievements || []).length;
+            if (matchIsDuel) {
+              duelGames++;
+              if (userResult.place === 1) {
+                duelWins++;
+                duelPoints += (2 + achPts);
+              } else {
+                duelLosses++;
+                duelPoints += achPts;
+              }
+            } else {
+              podGames++;
+              if (userResult.place === 1) {
+                podWins++;
+                podPoints += (4 + achPts);
+              } else if (userResult.place === 2) {
+                podSeconds++;
+                podPoints += (2 + achPts);
+              } else if (userResult.place === 3) {
+                podThirds++;
+                podPoints += (1 + achPts);
+              } else {
+                podPoints += achPts;
+              }
+            }
+          }
+        });
+
+        const podWinRate = podGames > 0 ? Math.round((podWins / podGames) * 100) : 0;
+        const duelWinRate = duelGames > 0 ? Math.round((duelWins / duelGames) * 100) : 0;
+        const trophiesCount = player.achievements ? player.achievements.length : 0;
+
+        return {
+          ...player,
+          podGames, podWins, podSeconds, podThirds, podPoints, podWinRate,
+          duelGames, duelWins, duelLosses, duelPoints, duelWinRate,
+          trophiesCount
+        };
+      });
+
+      const filtered = searchVal
+        ? computedPlayers.filter(p => p.name.toLowerCase().includes(searchVal))
+        : computedPlayers;
+
+      const sorted = isDuel
+        ? filtered.sort((a, b) => b.duelPoints - a.duelPoints || b.duelWins - a.duelWins)
+        : filtered.sort((a, b) => b.podPoints - a.podPoints || b.podWins - a.podWins);
+
+      const podCount = state.data.matches.filter(m => m.type !== 'duel' && m.results.length > 2).length;
+      const duelCount = state.data.matches.filter(m => m.type === 'duel' || m.results.length === 2).length;
+      document.getElementById('statTotalGames').textContent = `${podCount}p / ${duelCount}d`;
+      document.getElementById('statActivePlayers').textContent = `${state.data.players.length}`;
+      document.getElementById('statCurrentLeader').textContent = sorted[0] ? sorted[0].name : '—';
+
+      let totalTrophies = 0;
+      state.data.players.forEach(p => totalTrophies += (p.achievements ? p.achievements.length : 0));
+      document.getElementById('statUnlockedAchievements').textContent = `${totalTrophies}`;
+
+      sorted.forEach((player, idx) => {
+        let rankBadge = `<span class="font-bold text-stone-500 font-mono text-xs">#${idx + 1}</span>`;
+        let rowHighlight = 'hover:bg-white/[0.04]';
+
+        const rankKey = idx + 1;
+        if (currentThemeObj.ranks && currentThemeObj.ranks[rankKey]) {
+          const rObj = currentThemeObj.ranks[rankKey];
+          rankBadge = `<span class="${rObj.className}" title="${rObj.title || 'Rank ' + rankKey}">${rObj.innerHtml}</span>`;
+          rowHighlight = rObj.rowHighlight;
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = `${rowHighlight} transition-colors cursor-pointer group`;
+        tr.onclick = () => openPlayerDossier(player.id);
+
+        const avatarGrad = isDuel 
+          ? 'bg-orange-500/10 border-orange-500/25 text-orange-300' 
+          : 'bg-amber-500/10 border-amber-500/30 text-amber-200';
+
+        const trophyBadgeHtml = `
+          <span class="px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-300 font-bold text-[10px] inline-flex items-center gap-1">
+            <i class="fa-solid ${currentThemeObj.trophyIcon} text-[9px]"></i>${player.trophiesCount}
+          </span>
+        `;
+
+        const honors = getCommendationsForPlayer(player, computedPlayers);
+        let honorsHtml = '';
+        if (honors.length > 0) {
+          honorsHtml = `
+            <div class="flex items-center gap-1 mt-1">
+              ${honors.map(h => `<span class="text-[9px] font-bold px-1.5 py-0.2 rounded border ${h.color} inline-flex items-center gap-1" title="${h.title}"><i class="fa-solid ${h.icon}"></i> ${h.name}</span>`).join('')}
+            </div>
+          `;
+        }
+
+        if (isDuel) {
+          tr.innerHTML = `
+            <td class="py-3.5 px-4 text-center">${rankBadge}</td>
+            <td class="py-3.5 px-4">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl border flex items-center justify-center font-bold theme-heading text-xs shadow-sm ${avatarGrad}">
+                  ${player.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <span class="font-bold text-white text-xs block group-hover:text-amber-200 transition-colors">${player.name}</span>
+                  <span class="text-[10px] text-stone-400 truncate max-w-[140px] block">${player.favoriteCommander || 'Commander'}</span>
+                  ${honorsHtml}
+                </div>
+              </div>
+            </td>
+            <td class="py-3.5 px-3 text-center text-stone-300 font-semibold">${player.duelGames}</td>
+            <td class="py-3.5 px-3 text-center text-emerald-400 font-bold">${player.duelWins}</td>
+            <td class="py-3.5 px-3 text-center text-rose-400 font-semibold">${player.duelLosses}</td>
+            <td class="py-3.5 px-3 text-center">
+              <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-amber-300 font-bold text-[10px]">
+                ${player.duelWinRate}%
+              </span>
+            </td>
+            <td class="py-3.5 px-3 text-center">
+              ${trophyBadgeHtml}
+            </td>
+            <td class="py-3.5 px-4 text-right font-black text-orange-400 text-sm theme-heading">${player.duelPoints}</td>
+            <td class="py-3.5 px-3 text-center">
+              <button onclick="event.stopPropagation(); promptDeletePlayer('${player.id}', '${player.name.replace(/'/g, "\\'")}')" class="w-7 h-7 rounded-lg text-stone-500 hover:text-rose-400 hover:bg-rose-500/15 transition flex items-center justify-center mx-auto" title="Remove Player">
+                <i class="fa-solid fa-trash-can text-xs"></i>
+              </button>
+            </td>
+          `;
+        } else {
+          const podiums = player.podWins + player.podSeconds + player.podThirds;
+          tr.innerHTML = `
+            <td class="py-3.5 px-4 text-center">${rankBadge}</td>
+            <td class="py-3.5 px-4">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl border flex items-center justify-center font-bold theme-heading text-xs shadow-sm ${avatarGrad}">
+                  ${player.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <span class="font-bold text-white text-xs block group-hover:text-amber-200 transition-colors">${player.name}</span>
+                  <span class="text-[10px] text-stone-400 truncate max-w-[140px] block">${player.favoriteCommander || 'Commander'}</span>
+                  ${honorsHtml}
+                </div>
+              </div>
+            </td>
+            <td class="py-3.5 px-3 text-center text-stone-300 font-semibold">${player.podGames}</td>
+            <td class="py-3.5 px-3 text-center text-emerald-400 font-bold">${player.podWins}</td>
+            <td class="py-3.5 px-3 text-center">
+              <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-amber-300 font-bold text-[10px]">
+                ${player.podWinRate}%
+              </span>
+            </td>
+            <td class="py-3.5 px-3 text-center text-stone-300 font-semibold">${podiums}</td>
+            <td class="py-3.5 px-3 text-center">
+              ${trophyBadgeHtml}
+            </td>
+            <td class="py-3.5 px-4 text-right font-black ${accents.text} text-sm theme-heading">${player.podPoints}</td>
+            <td class="py-3.5 px-3 text-center">
+              <button onclick="event.stopPropagation(); promptDeletePlayer('${player.id}', '${player.name.replace(/'/g, "\\'")}')" class="w-7 h-7 rounded-lg text-stone-500 hover:text-rose-400 hover:bg-rose-500/15 transition flex items-center justify-center mx-auto" title="Remove Player">
+                <i class="fa-solid fa-trash-can text-xs"></i>
+              </button>
+            </td>
+          `;
+        }
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterMatchHistory(kind) {
+      state.matchFilter = kind;
+      const accents = getThemeAccentClasses();
+
+      ['all', 'pod', 'duel'].forEach(k => {
+        const btn = document.getElementById(`mf${k.charAt(0).toUpperCase() + k.slice(1)}Btn`);
+        if (btn) {
+          btn.className = k === kind 
+            ? `px-3 py-1 rounded-lg font-bold ${accents.bg} ${accents.text} border ${accents.border}` 
+            : 'px-3 py-1 rounded-lg text-stone-400 hover:text-white';
+        }
+      });
+      renderMatchLog();
+    }
+
+    function renderMatchLog() {
+      const container = document.getElementById('matchLogContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      let list = [...state.data.matches].reverse();
+      if (state.matchFilter === 'pod') list = list.filter(m => m.type !== 'duel' && m.results.length > 2);
+      if (state.matchFilter === 'duel') list = list.filter(m => m.type === 'duel' || m.results.length === 2);
+
+      if (list.length === 0) {
+        container.innerHTML = '<div class="py-12 text-center text-stone-400 glass-panel rounded-2xl"><p class="text-xs">No matches found in chronicle.</p></div>';
+        return;
+      }
+
+      const accents = getThemeAccentClasses();
+      const currentThemeObj = THEMES[state.activeTheme] || THEMES.rustic_cafe;
+
+      list.forEach(match => {
+        const isDuel = match.type === 'duel' || match.results.length === 2;
+        const winnerResult = match.results.find(r => r.place === 1) || match.results[0];
+        const winnerPlayer = state.data.players.find(p => p.id === winnerResult?.playerId);
+        const winnerName = winnerPlayer ? winnerPlayer.name : 'Unknown';
+        const formattedDate = new Date(match.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
+        const card = document.createElement('div');
+        card.className = 'p-4 rounded-2xl glass-panel flex flex-col gap-3 group hover:border-amber-400/30 transition';
+
+        let seatsHtml = '';
+        match.results.forEach(res => {
+          const p = state.data.players.find(pl => pl.id === res.playerId);
+          const pName = p ? p.name : 'Player';
+          const placeBadge = res.place === 1 
+            ? `<span class="${accents.text} font-bold">${currentThemeObj.winnerBadge}</span>` 
+            : `<span class="text-stone-400">${res.place}th</span>`;
+          seatsHtml += `
+            <div class="flex items-center justify-between p-2 rounded-xl bg-black/40 border border-white/5 text-xs">
+              <div class="flex items-center gap-2 truncate">
+                ${placeBadge}
+                <span class="font-semibold text-white truncate">${pName}</span>
+                <span class="text-[10px] text-stone-400 truncate">(${res.commander || 'Commander'})</span>
+              </div>
+              <div class="flex items-center gap-1">
+                ${(res.achievements || []).map(achId => {
+                  const a = INITIAL_ACHIEVEMENTS.find(item => item.id === achId);
+                  return a ? `<span class="w-5 h-5 rounded-md bg-white/5 border border-white/10 flex items-center justify-center text-[10px] ${a.color}" title="${a.title}"><i class="fa-solid ${a.icon}"></i></span>` : '';
+                }).join('')}
+              </div>
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${isDuel ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30' : `${accents.bg} ${accents.text} border ${accents.border}`}">
+                <i class="fa-solid ${isDuel ? currentThemeObj.subleague.duelIcon : currentThemeObj.subleague.podIcon} text-[9px] mr-1"></i>
+                ${isDuel ? '1v1 Duel' : 'Pod Match'}
+              </span>
+              <span class="text-[11px] text-stone-400">${formattedDate}</span>
+            </div>
+            <button onclick="promptDeleteMatch('${match.id}')" class="text-stone-500 hover:text-rose-400 p-1" title="Delete Match"><i class="fa-solid fa-trash-can text-xs"></i></button>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-white">Winner: <span class="${accents.text}">${winnerName}</span> piloting <span class="italic text-stone-300">${winnerResult.commander || 'Commander'}</span></span>
+            ${match.notes ? `<p class="text-[11px] text-stone-400 mt-1 italic">"${match.notes}"</p>` : ''}
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+            ${seatsHtml}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderAchievements() {
+      const grid = document.getElementById('achievementsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const currentThemeObj = THEMES[state.activeTheme] || THEMES.rustic_cafe;
+
+      INITIAL_ACHIEVEMENTS.forEach(ach => {
+        let unlockers = [];
+        state.data.players.forEach(p => {
+          if (p.achievements && p.achievements.includes(ach.id)) unlockers.push(p.name);
+        });
+
+        const card = document.createElement('div');
+        card.className = 'p-4 rounded-2xl glass-panel flex flex-col justify-between gap-3 group hover:border-amber-400/40 transition';
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-lg ${ach.color} group-hover:scale-105 transition-transform">
+                <i class="fa-solid ${ach.icon}"></i>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-stone-400 uppercase tracking-wider">${ach.category || 'Trophy'}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-stone-400 flex items-center gap-1">
+                  <i class="fa-solid ${currentThemeObj.trophyIcon} text-[9px] text-amber-400"></i> ${unlockers.length}
+                </span>
+              </div>
+            </div>
+            <h3 class="theme-heading font-bold text-sm text-white">${ach.title}</h3>
+            <p class="text-xs text-stone-400 mt-1 leading-relaxed">${ach.desc}</p>
+          </div>
+          <div class="pt-2 border-t border-white/10 text-[11px]">
+            <span class="text-stone-500 block text-[10px] uppercase font-semibold mb-1">Claimed By:</span>
+            <div class="flex flex-wrap gap-1">
+              ${unlockers.length > 0 
+                ? unlockers.map(u => `<span class="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-200 text-[10px] font-semibold">${u}</span>`).join('')
+                : '<span class="text-stone-600 italic text-[10px]">Unclaimed this season</span>'}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderCommanders() {
+      const grid = document.getElementById('commandersGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const stats = {};
+      state.data.matches.forEach(m => {
+        m.results.forEach(r => {
+          const name = r.commander ? r.commander.trim() : 'Unknown';
+          if (!stats[name]) stats[name] = { plays: 0, wins: 0, pilots: new Set() };
+          stats[name].plays++;
+          if (r.place === 1) stats[name].wins++;
+          const p = state.data.players.find(pl => pl.id === r.playerId);
+          if (p) stats[name].pilots.add(p.name);
+        });
+      });
+
+      const list = Object.entries(stats).sort((a, b) => b[1].wins - a[1].wins || b[1].plays - a[1].plays);
+
+      if (list.length === 0) {
+        grid.innerHTML = '<div class="col-span-full py-12 text-center text-stone-400 glass-panel rounded-2xl"><p class="text-xs">No commander data logged yet.</p></div>';
+        return;
+      }
+
+      list.forEach(([cName, data]) => {
+        const winRate = data.plays > 0 ? Math.round((data.wins / data.plays) * 100) : 0;
+        const card = document.createElement('div');
+        card.className = 'p-4 rounded-2xl glass-panel flex flex-col justify-between gap-3';
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="theme-heading font-bold text-sm text-white truncate max-w-[180px]">${cName}</span>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-200 font-bold text-[10px]">${winRate}% Win</span>
+            </div>
+            <div class="flex items-center gap-3 mt-3 text-xs">
+              <span class="text-stone-400">Wins: <strong class="text-white">${data.wins}</strong></span>
+              <span class="text-stone-400">Matches: <strong class="text-white">${data.plays}</strong></span>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-white/10 text-[10px] text-stone-400">
+            Piloted by: <span class="text-stone-200 font-semibold">${Array.from(data.pilots).join(', ')}</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openLogGameModal() {
+      const modal = document.getElementById('logGameModal');
+      if (modal) modal.classList.remove('hidden');
+      buildMatchSeatInputs();
+    }
+
+    function closeLogGameModal() {
+      const modal = document.getElementById('logGameModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function setLogMatchType(type) {
+      state.logMatchType = type;
+      const accents = getThemeAccentClasses();
+
+      ['pod4', 'pod3', 'duel'].forEach(t => {
+        const btn = document.getElementById(`lm${t.charAt(0).toUpperCase() + t.slice(1)}Btn`);
+        if (btn) {
+          btn.className = t === type 
+            ? `py-2 rounded-xl font-bold ${accents.bg} ${accents.text} border ${accents.border}` 
+            : 'py-2 rounded-xl font-semibold bg-white/5 border border-white/10 text-stone-300';
+        }
+      });
+      buildMatchSeatInputs();
+    }
+
+    function buildMatchSeatInputs() {
+      const container = document.getElementById('matchSeatsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const count = state.logMatchType === 'pod4' ? 4 : (state.logMatchType === 'pod3' ? 3 : 2);
+      const accents = getThemeAccentClasses();
+      const currentThemeObj = THEMES[state.activeTheme] || THEMES.rustic_cafe;
+
+      for (let i = 1; i <= count; i++) {
+        const seatBox = document.createElement('div');
+        seatBox.className = 'p-3 rounded-xl bg-black/40 border border-white/10 flex flex-col gap-2.5';
+
+        const placeLabel = i === 1 ? currentThemeObj.winnerBadge : (i === 2 ? '2nd Place' : (i === 3 ? '3rd Place' : '4th Place'));
+
+        let playerOptions = '<option value="">Select Player...</option>';
+        state.data.players.forEach(p => {
+          playerOptions += `<option value="${p.id}">${p.name}</option>`;
+        });
+
+        let achBoxes = '';
+        INITIAL_ACHIEVEMENTS.forEach(ach => {
+          achBoxes += `
+            <label class="flex items-center gap-1 cursor-pointer">
+              <input type="checkbox" data-ach-id="${ach.id}" class="seat-ach-cb-${i} rounded bg-black/50 border-white/20 text-amber-500 focus:ring-0">
+              <span class="text-[10px] text-stone-300 truncate" title="${ach.desc}">${ach.title}</span>
+            </label>
+          `;
+        });
+
+        seatBox.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="font-bold ${accents.text} theme-heading text-xs">${placeLabel}</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <select id="seatPlayer_${i}" class="bg-black/60 border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
+              ${playerOptions}
+            </select>
+            <input type="text" id="seatCommander_${i}" placeholder="Commander Piloted" class="bg-black/60 border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold text-stone-500 block mb-1">Badges Unlocked:</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 max-h-36 overflow-y-auto pr-1">
+              ${achBoxes}
+            </div>
+          </div>
+        `;
+        container.appendChild(seatBox);
+      }
+    }
+
+    function saveLoggedMatch() {
+      const count = state.logMatchType === 'pod4' ? 4 : (state.logMatchType === 'pod3' ? 3 : 2);
+      const isDuel = state.logMatchType === 'duel';
+      const results = [];
+      const selectedPlayerIds = new Set();
+
+      for (let i = 1; i <= count; i++) {
+        const pSelect = document.getElementById(`seatPlayer_${i}`);
+        const cInput = document.getElementById(`seatCommander_${i}`);
+        const pId = pSelect ? pSelect.value : '';
+        const cmdr = cInput ? cInput.value.trim() : '';
+
+        if (!pId) {
+          showToast(`Please choose a player for Seat ${i}`, 'fa-triangle-exclamation');
+          return;
+        }
+        if (selectedPlayerIds.has(pId)) {
+          showToast('Each player can only occupy one seat.', 'fa-triangle-exclamation');
+          return;
+        }
+        selectedPlayerIds.add(pId);
+
+        const achCheckboxes = document.querySelectorAll(`.seat-ach-cb-${i}:checked`);
+        const unlocked = Array.from(achCheckboxes).map(cb => cb.getAttribute('data-ach-id'));
+
+        results.push({
+          playerId: pId,
+          commander: cmdr || 'Commander',
+          place: i,
+          achievements: unlocked
+        });
+
+        const playerObj = state.data.players.find(p => p.id === pId);
+        if (playerObj) {
+          if (!playerObj.achievements) playerObj.achievements = [];
+          unlocked.forEach(achId => {
+            if (!playerObj.achievements.includes(achId)) playerObj.achievements.push(achId);
+          });
+          if (cmdr) playerObj.favoriteCommander = cmdr;
+        }
+      }
+
+      const notesInput = document.getElementById('matchNotesInput');
+      const newMatch = {
+        id: 'm_' + Date.now(),
+        date: new Date().toISOString(),
+        type: isDuel ? 'duel' : 'pod',
+        notes: notesInput ? notesInput.value.trim() : '',
+        results: results
+      };
+
+      state.data.matches.push(newMatch);
+      persistData();
+      playChime('win');
+      closeLogGameModal();
+      showToast('Match logged into chronicle!', 'fa-trophy');
+      renderStandings();
+      renderMatchLog();
+      renderAchievements();
+      renderCommanders();
+    }
+
+    function openPlayerModal() {
+      const modal = document.getElementById('addPlayerModal');
+      const input = document.getElementById('newPlayerNameInput');
+      if (input) input.value = '';
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closePlayerModal() {
+      const modal = document.getElementById('addPlayerModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveNewPlayer() {
+      const input = document.getElementById('newPlayerNameInput');
+      const name = input ? input.value.trim() : '';
+      if (!name) return;
+
+      const newP = {
+        id: 'p_' + Date.now(),
+        name: name,
+        favoriteCommander: 'Commander',
+        achievements: []
+      };
+
+      state.data.players.push(newP);
+      persistData();
+      closePlayerModal();
+      playChime('click');
+      showToast(`Added ${name} to the table!`, 'fa-user-check');
+      renderStandings();
+    }
+
+    function promptDeletePlayer(playerId, playerName) {
+      state.pendingConfirmAction = () => {
+        state.data.players = state.data.players.filter(p => p.id !== playerId);
+        state.data.matches.forEach(m => {
+          m.results = m.results.filter(r => r.playerId !== playerId);
+        });
+        state.data.matches = state.data.matches.filter(m => m.results.length >= 2);
+        persistData();
+        showToast(`Removed ${playerName} from table.`, 'fa-trash-can');
+        renderStandings();
+        renderMatchLog();
+      };
+      showConfirmModal('Remove Player', `Are you sure you want to remove ${playerName}?`);
+    }
+
+    function promptClearSampleData() {
+      state.pendingConfirmAction = () => {
+        state.data.players = [];
+        state.data.matches = [];
+        persistData();
+        showToast('Table roster and chronicle cleared.', 'fa-broom');
+        renderStandings();
+        renderMatchLog();
+        renderAchievements();
+        renderCommanders();
+      };
+      showConfirmModal('Reset League Roster', 'Clear all players and match history to start with a blank season?');
+    }
+
+    function promptDeleteMatch(matchId) {
+      state.pendingConfirmAction = () => {
+        state.data.matches = state.data.matches.filter(m => m.id !== matchId);
+        persistData();
+        showToast('Match record removed.', 'fa-trash-can');
+        renderStandings();
+        renderMatchLog();
+      };
+      showConfirmModal('Delete Match Record', 'Are you sure you want to delete this recorded game?');
+    }
+
+    function showConfirmModal(title, desc) {
+      const modal = document.getElementById('confirmActionModal');
+      const titleEl = document.getElementById('confirmModalTitle');
+      const descEl = document.getElementById('confirmModalDesc');
+      if (titleEl) titleEl.textContent = title;
+      if (descEl) descEl.textContent = desc;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeConfirmModal() {
+      const modal = document.getElementById('confirmActionModal');
+      if (modal) modal.classList.add('hidden');
+      state.pendingConfirmAction = null;
+    }
+
+    function executePendingConfirmAction() {
+      if (typeof state.pendingConfirmAction === 'function') {
+        state.pendingConfirmAction();
+      }
+      closeConfirmModal();
+    }
+
+    function openPlayerDossier(playerId) {
+      const p = state.data.players.find(item => item.id === playerId);
+      if (!p) return;
+
+      let podGames = 0, podWins = 0, podPts = 0;
+      let duelGames = 0, duelWins = 0, duelLosses = 0, duelPts = 0;
+
+      state.data.matches.forEach(m => {
+        const isDuel = m.type === 'duel' || m.results.length === 2;
+        const res = m.results.find(r => r.playerId === p.id);
+        if (res) {
+          const achCount = (res.achievements || []).length;
+          if (isDuel) {
+            duelGames++;
+            if (res.place === 1) { duelWins++; duelPts += 2 + achCount; }
+            else { duelLosses++; duelPts += achCount; }
+          } else {
+            podGames++;
+            if (res.place === 1) podPts += 4 + achCount;
+            else if (res.place === 2) podPts += 2 + achCount;
+            else if (res.place === 3) podPts += 1 + achCount;
+            else podPts += achCount;
+            if (res.place === 1) podWins++;
+          }
+        }
+      });
+
+      const podWinRate = podGames > 0 ? Math.round((podWins / podGames) * 100) : 0;
+      const duelWinRate = duelGames > 0 ? Math.round((duelWins / duelGames) * 100) : 0;
+
+      document.getElementById('dossierPlayerName').textContent = p.name;
+      document.getElementById('dossierAvatar').textContent = p.name.charAt(0).toUpperCase();
+      document.getElementById('dossierFavoriteCommander').textContent = `Favorite: ${p.favoriteCommander || 'Commander'}`;
+      document.getElementById('dossierPodRecord').textContent = `${podWins}W / ${podGames}G (${podWinRate}%)`;
+      document.getElementById('dossierPodPoints').textContent = `${podPts} Pod Points`;
+      document.getElementById('dossierDuelRecord').textContent = `${duelWins}W - ${duelLosses}L (${duelWinRate}%)`;
+      document.getElementById('dossierDuelPoints').textContent = `${duelPts} Duel Points`;
+
+      const allComputed = state.data.players.map(item => {
+        let pG = 0, dG = 0, pW = 0, dW = 0;
+        state.data.matches.forEach(m => {
+          const matchIsDuel = m.type === 'duel' || m.results.length === 2;
+          const userResult = m.results.find(r => r.playerId === item.id);
+          if (userResult) {
+            if (matchIsDuel) { dG++; if (userResult.place === 1) dW++; }
+            else { pG++; if (userResult.place === 1) pW++; }
+          }
+        });
+        return {
+          ...item,
+          podGames: pG, duelGames: dG,
+          podWinRate: pG > 0 ? Math.round((pW / pG) * 100) : 0,
+          duelWinRate: dG > 0 ? Math.round((dW / dG) * 100) : 0,
+          trophiesCount: (item.achievements || []).length
+        };
+      });
+
+      const honors = getCommendationsForPlayer({
+        ...p,
+        podGames, duelGames, podWinRate, duelWinRate,
+        trophiesCount: (p.achievements || []).length
+      }, allComputed);
+
+      const commsBox = document.getElementById('dossierCommendationBadges');
+      if (commsBox) {
+        commsBox.innerHTML = '';
+        if (honors.length === 0) {
+          commsBox.innerHTML = '<span class="text-stone-500 italic text-[10px]">No active title honors yet</span>';
+        } else {
+          honors.forEach(h => {
+            const sp = document.createElement('span');
+            sp.className = `px-2 py-0.5 rounded border ${h.color} text-[10px] font-bold flex items-center gap-1`;
+            sp.innerHTML = `<i class="fa-solid ${h.icon}"></i> ${h.name}`;
+            commsBox.appendChild(sp);
+          });
+        }
+      }
+
+      const listEl = document.getElementById('dossierAchievementsList');
+      if (listEl) {
+        listEl.innerHTML = '';
+        if (!p.achievements || p.achievements.length === 0) {
+          listEl.innerHTML = '<span class="text-stone-500 italic">No trophies unlocked yet.</span>';
+        } else {
+          p.achievements.forEach(achId => {
+            const a = INITIAL_ACHIEVEMENTS.find(item => item.id === achId);
+            if (a) {
+              const chip = document.createElement('span');
+              chip.className = 'px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-white flex items-center gap-1.5';
+              chip.innerHTML = `<i class="fa-solid ${a.icon} ${a.color}"></i> ${a.title}`;
+              listEl.appendChild(chip);
+            }
+          });
+        }
+      }
+
+      const modal = document.getElementById('playerDossierModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closePlayerDossier() {
+      const modal = document.getElementById('playerDossierModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function promptEditLeagueTitle() {
+      const modal = document.getElementById('editLeagueTitleModal');
+      const input = document.getElementById('leagueTitleInput');
+      if (input) input.value = state.data.leagueTitle || 'POD LEAGUE';
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeEditLeagueTitleModal() {
+      const modal = document.getElementById('editLeagueTitleModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveLeagueTitle() {
+      const input = document.getElementById('leagueTitleInput');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+      state.data.leagueTitle = val.toUpperCase();
+      persistData();
+      closeEditLeagueTitleModal();
+      showToast('League name saved!', 'fa-pen-to-square');
+      renderStandings();
+    }
+
+    function promptEditSeasonName() {
+      const modal = document.getElementById('editSeasonModal');
+      const input = document.getElementById('seasonNameInput');
+      if (input) input.value = state.data.seasonName || 'Season 1: Coffeehouse Pod';
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeEditSeasonModal() {
+      const modal = document.getElementById('editSeasonModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveSeasonName() {
+      const input = document.getElementById('seasonNameInput');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+      state.data.seasonName = val;
+      persistData();
+      closeEditSeasonModal();
+      showToast('Season title saved!', 'fa-pen-to-square');
+      renderStandings();
+    }
+
+    function openDataModal() {
+      const modal = document.getElementById('dataModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeDataModal() {
+      const modal = document.getElementById('dataModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function copyShareUrl() {
+      try {
+        const json = JSON.stringify(state.data);
+        const encoded = btoa(encodeURIComponent(json));
+        const url = `${window.location.origin}${window.location.pathname}#data=${encoded}`;
+
+        const dummy = document.createElement('textarea');
+        dummy.value = url;
+        document.body.appendChild(dummy);
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+
+        const lbl = document.getElementById('copyUrlLabel');
+        if (lbl) {
+          lbl.textContent = 'Copied Link to Clipboard!';
+          setTimeout(() => lbl.textContent = 'Copy Shareable League Link', 2500);
+        }
+        showToast('Shareable URL copied!', 'fa-link');
+      } catch (e) {
+        showToast('Unable to encode share link', 'fa-triangle-exclamation');
+      }
+    }
+
+    function exportJsonFile() {
+      const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.data, null, 2));
+      const anchor = document.createElement('a');
+      anchor.setAttribute("href", str);
+      anchor.setAttribute("download", `pod_league_backup_${Date.now()}.json`);
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      showToast('Downloaded league backup JSON', 'fa-download');
+    }
+
+    function importJsonFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          const parsed = JSON.parse(evt.target.result);
+          if (parsed && parsed.players && parsed.matches) {
+            state.data = parsed;
+            persistData();
+            closeDataModal();
+            showToast('League backup loaded successfully!', 'fa-file-import');
+            renderStandings();
+            renderMatchLog();
+            renderAchievements();
+            renderCommanders();
+          } else {
+            showToast('Invalid backup file structure', 'fa-triangle-exclamation');
+          }
+        } catch (err) {
+          showToast('Failed to read JSON file', 'fa-triangle-exclamation');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    window.onload = function() {
+      setAppTheme(state.activeTheme);
+      initCloudSync();
+      renderStandings();
+      renderMatchLog();
+      renderAchievements();
+      renderCommanders();
+    };
+
+    // Expose functions to global window scope for inline onclick listeners
+    window.switchTab = switchTab;
+    window.setAppTheme = setAppTheme;
+    window.toggleThemeDropdown = toggleThemeDropdown;
+    window.toggleSound = toggleSound;
+    window.setLeagueView = setLeagueView;
+    window.filterMatchHistory = filterMatchHistory;
+    window.openLogGameModal = openLogGameModal;
+    window.closeLogGameModal = closeLogGameModal;
+    window.setLogMatchType = setLogMatchType;
+    window.saveLoggedMatch = saveLoggedMatch;
+    window.openPlayerModal = openPlayerModal;
+    window.closePlayerModal = closePlayerModal;
+    window.saveNewPlayer = saveNewPlayer;
+    window.promptDeletePlayer = promptDeletePlayer;
+    window.promptClearSampleData = promptClearSampleData;
+    window.promptDeleteMatch = promptDeleteMatch;
+    window.closeConfirmModal = closeConfirmModal;
+    window.executePendingConfirmAction = executePendingConfirmAction;
+    window.openPlayerDossier = openPlayerDossier;
+    window.closePlayerDossier = closePlayerDossier;
+    window.promptEditLeagueTitle = promptEditLeagueTitle;
+    window.closeEditLeagueTitleModal = closeEditLeagueTitleModal;
+    window.saveLeagueTitle = saveLeagueTitle;
+    window.promptEditSeasonName = promptEditSeasonName;
+    window.closeEditSeasonModal = closeEditSeasonModal;
+    window.saveSeasonName = saveSeasonName;
+    window.openDataModal = openDataModal;
+    window.closeDataModal = closeDataModal;
+    window.openCloudConfigModal = openCloudConfigModal;
+    window.closeCloudConfigModal = closeCloudConfigModal;
+    window.saveCustomFirebaseConfig = saveCustomFirebaseConfig;
+    window.copyShareUrl = copyShareUrl;
+    window.exportJsonFile = exportJsonFile;
+    window.importJsonFile = importJsonFile;
+    window.renderStandings = renderStandings;
+  </script>
+</body>
+</html>

@@ -8,148 +8,246 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* THEME 1: Rustic Café (Morning Roast & 35mm Film Grain) */
+    /* THEME 1: Obsidian Roast (High-Contrast Dark Copper & Carbon) */
     :root, [data-theme="rustic_cafe"] {
-      --bg-base: #17120e;
-      --bg-gradient: radial-gradient(ellipse at 25% -10%, #3e281c 0%, #251b14 40%, #16100c 85%, #0e0a08 100%);
-      --surface-card: rgba(35, 26, 20, 0.84);
-      --surface-subtle: rgba(48, 36, 28, 0.65);
-      --border-accent: rgba(212, 163, 115, 0.38);
-      --border-subtle: rgba(230, 204, 178, 0.12);
-      --accent-primary: #d4a373;
-      --accent-glow: rgba(212, 163, 115, 0.35);
-      --btn-grad: linear-gradient(135deg, #b07246 0%, #8c522b 50%, #683817 100%);
-      --header-bg: rgba(23, 18, 14, 0.94);
-      --shimmer-grad: linear-gradient(90deg, #d4a373, #faedcd, #c97a56, #d4a373);
-      --brand-icon-color: #d4a373;
-      --brand-subtle-glow: rgba(212, 163, 115, 0.3);
+      --bg-base: #050505;
+      --bg-gradient: linear-gradient(180deg, #080706 0%, #040404 100%);
+      --surface-card: #0c0b0a;
+      --surface-subtle: #141210;
+      --border-accent: #e09f67;
+      --border-subtle: #26221e;
+      --accent-primary: #e09f67;
+      --accent-glow: rgba(224, 159, 103, 0.25);
+      --btn-grad: #e09f67;
+      --btn-text: #050505;
+      --header-bg: #070605;
+      --brand-icon-color: #e09f67;
       --body-font: 'Inter', sans-serif;
-      --heading-font: 'Fraunces', serif;
-      --analog-grain-opacity: 0.5;
+      --heading-font: 'Space Grotesk', sans-serif;
+      --mono-font: 'JetBrains Mono', monospace;
     }
 
-    /* THEME 2: The Blind Eternities */
+    /* THEME 2: The Blind Eternities (Stark Void & High-Contrast Cyan) */
     [data-theme="blind_eternities"] {
-      --bg-base: #030611;
-      --bg-gradient: radial-gradient(ellipse at 50% -15%, #2a1147 0%, #0c1633 45%, #030611 100%);
-      --surface-card: rgba(9, 17, 34, 0.82);
-      --surface-subtle: rgba(18, 30, 56, 0.65);
-      --border-accent: rgba(56, 189, 248, 0.45);
-      --border-subtle: rgba(168, 85, 247, 0.18);
-      --accent-primary: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.45);
-      --btn-grad: linear-gradient(135deg, #7c3aed 0%, #4f46e5 45%, #0284c7 100%);
-      --header-bg: rgba(4, 8, 18, 0.92);
-      --shimmer-grad: linear-gradient(90deg, #38bdf8, #e879f9, #818cf8, #38bdf8);
-      --brand-icon-color: #38bdf8;
-      --brand-subtle-glow: rgba(56, 189, 248, 0.3);
+      --bg-base: #030508;
+      --bg-gradient: linear-gradient(180deg, #05080f 0%, #020306 100%);
+      --surface-card: #080d16;
+      --surface-subtle: #0e1624;
+      --border-accent: #00e5ff;
+      --border-subtle: #1b2838;
+      --accent-primary: #00e5ff;
+      --accent-glow: rgba(0, 229, 255, 0.25);
+      --btn-grad: #00e5ff;
+      --btn-text: #030508;
+      --header-bg: #04070c;
+      --brand-icon-color: #00e5ff;
       --body-font: 'Inter', sans-serif;
       --heading-font: 'Cinzel', serif;
-      --analog-grain-opacity: 0.15;
+      --mono-font: 'JetBrains Mono', monospace;
     }
 
-    /* THEME 3: Mythic Gold */
+    /* THEME 3: Mythic Gold (Stark Onyx & High-Contrast Gold) */
     [data-theme="mythic"] {
-      --bg-base: #07080e;
-      --bg-gradient: radial-gradient(circle at 50% -10%, #1c152c 0%, #0d0f1a 45%, #06070c 100%);
-      --surface-card: rgba(16, 18, 28, 0.78);
-      --surface-subtle: rgba(25, 28, 44, 0.6);
-      --border-accent: rgba(245, 197, 66, 0.35);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --accent-primary: #f5c542;
-      --accent-glow: rgba(245, 197, 66, 0.35);
-      --btn-grad: linear-gradient(135deg, #d97706 0%, #b45309 50%, #92400e 100%);
-      --header-bg: rgba(7, 8, 14, 0.9);
-      --shimmer-grad: linear-gradient(90deg, #f5c542, #fff7d6, #d97706, #f5c542);
-      --brand-icon-color: #f5c542;
-      --brand-subtle-glow: rgba(245, 197, 66, 0.25);
+      --bg-base: #050505;
+      --bg-gradient: linear-gradient(180deg, #090806 0%, #040404 100%);
+      --surface-card: #0d0c09;
+      --surface-subtle: #171510;
+      --border-accent: #ffcc00;
+      --border-subtle: #29251a;
+      --accent-primary: #ffcc00;
+      --accent-glow: rgba(255, 204, 0, 0.25);
+      --btn-grad: #ffcc00;
+      --btn-text: #050505;
+      --header-bg: #070705;
+      --brand-icon-color: #ffcc00;
       --body-font: 'Inter', sans-serif;
       --heading-font: 'Cinzel', serif;
-      --analog-grain-opacity: 0.1;
+      --mono-font: 'JetBrains Mono', monospace;
+    }
+
+    /* STRICT ZERO BORDER-RADIUS ENFORCEMENT */
+    *, *::before, *::after {
+      border-radius: 0px !important;
     }
 
     body {
       font-family: var(--body-font);
       background: var(--bg-gradient);
       background-color: var(--bg-base);
-      color: #ede0d4;
+      color: #f5f5f5;
       min-height: 100vh;
       overflow-x: hidden;
-      background-attachment: fixed;
-      transition: background-color 0.3s ease, background 0.3s ease, color 0.3s ease;
       position: relative;
+      letter-spacing: -0.01em;
     }
 
+    /* Subtle Architectural Technical Grid Overlay */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 32px 32px;
       pointer-events: none;
-      z-index: 999;
-      mix-blend-mode: overlay;
-      opacity: var(--analog-grain-opacity);
+      z-index: 0;
+    }
+
+    header, main, #toastNotification {
+      position: relative;
+      z-index: 10;
     }
 
     .font-cinzel, .theme-heading {
       font-family: var(--heading-font);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     .theme-header {
       background: var(--header-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-subtle);
-      transition: background 0.3s ease, border-color 0.3s ease;
+      border-bottom: 2px solid var(--border-subtle);
     }
 
+    /* High-Contrast Brutalist Panel replacing blurry AI glass */
     .glass-panel {
       background: var(--surface-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-subtle);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      transition: background 0.3s ease, border-color 0.3s ease;
+      box-shadow: 4px 4px 0px #000000;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
     }
 
+    .glass-panel:hover {
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Solid Architectural Primary Button */
     .theme-btn-primary {
       background: var(--btn-grad);
-      color: #ffffff;
-      box-shadow: 0 4px 18px var(--accent-glow);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--btn-text) !important;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--accent-primary);
+      box-shadow: 3px 3px 0px #000000;
+      transition: all 0.12s ease;
     }
 
     .theme-btn-primary:hover {
-      filter: brightness(1.12);
-      transform: translateY(-1px);
+      background: #ffffff;
+      color: #000000 !important;
+      border-color: #ffffff;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px var(--accent-primary);
     }
 
+    .theme-btn-primary:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px #000000;
+    }
+
+    /* Crisp Solid White Title instead of AI Gradient Shimmer */
     .shimmer-text {
-      background: var(--shimmer-grad);
-      background-size: 200% auto;
-      color: transparent;
-      -webkit-background-clip: text;
-      animation: shimmerAnimation 7s linear infinite;
+      color: #ffffff;
+      background: none;
+      -webkit-background-clip: initial;
+      animation: none;
+      letter-spacing: 0.08em;
     }
 
-    @keyframes shimmerAnimation {
-      to { background-position: 200% center; }
+    /* Sharp Rank Borders */
+    .rank-glow-1 {
+      box-shadow: none;
+      border: 2px solid var(--accent-primary) !important;
+      background: var(--accent-primary) !important;
+      color: #050505 !important;
+    }
+    .rank-glow-2 {
+      box-shadow: none;
+      border: 1px solid #d4d4d8 !important;
+      background: #27272a !important;
+      color: #ffffff !important;
+    }
+    .rank-glow-3 {
+      box-shadow: none;
+      border: 1px solid #d97706 !important;
+      background: #1c1917 !important;
+      color: #fbbf24 !important;
+    }
+    .rank-glow-4 {
+      box-shadow: none;
+      border: 1px solid #3f3f46 !important;
+      background: #09090b !important;
+      color: #a1a1aa !important;
     }
 
-    .rank-glow-1 { box-shadow: 0 0 18px 2px var(--accent-glow); }
-    .rank-glow-2 { box-shadow: 0 0 14px -1px rgba(220, 200, 180, 0.4); }
-    .rank-glow-3 { box-shadow: 0 0 14px -1px rgba(180, 110, 60, 0.45); }
-    .rank-glow-4 { box-shadow: 0 0 10px -1px rgba(160, 130, 100, 0.3); }
+    /* Tabular Numeric Readouts */
+    #statTotalGames, #statActivePlayers, #statUnlockedAchievements, table td {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Custom High-Definition SVG Icon Styling */
+    i[data-hd-svg] {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      line-height: 1;
+      font-style: normal;
+    }
+    i[data-hd-svg]::before {
+      content: none !important;
+      display: none !important;
+    }
+    .hd-svg-icon {
+      width: 1.15em;
+      height: 1.15em;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.85;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      flex-shrink: 0;
+    }
+
+    /* High-contrast Form Inputs */
+    input, select, textarea {
+      background-color: #050505 !important;
+      border: 1px solid #2e2e2e !important;
+      color: #ffffff !important;
+      font-family: var(--mono-font);
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent-primary) !important;
+      box-shadow: 2px 2px 0px var(--accent-primary) !important;
+      outline: none !important;
+    }
+
+    /* Table Structural Lines */
+    table {
+      border-collapse: collapse;
+    }
+    thead tr {
+      background-color: #050505 !important;
+      border-bottom: 2px solid var(--border-subtle) !important;
+    }
+    tbody tr {
+      border-bottom: 1px solid #1a1a1a !important;
+    }
+    tbody tr:hover {
+      background-color: #141414 !important;
+    }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.45); }
-    ::-webkit-scrollbar-thumb { background: var(--border-accent); border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+    ::-webkit-scrollbar-track { background: #050505; border-left: 1px solid #1f1f1f; }
+    ::-webkit-scrollbar-thumb { background: var(--border-accent); }
+    ::-webkit-scrollbar-thumb:hover { background: #ffffff; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -172,7 +270,7 @@
           </div>
           <!-- Editable Season Title -->
           <div class="flex items-center gap-1.5 mt-0.5">
-            <span id="seasonBadge" class="text-[11px] font-semibold uppercase tracking-wider text-amber-200/70 truncate max-w-[180px] sm:max-w-xs">Season 1: Coffeehouse Pod</span>
+            <span id="seasonBadge" class="text-[11px] font-semibold uppercase tracking-wider text-stone-400 truncate max-w-[180px] sm:max-w-xs">Season 1: Coffeehouse Pod</span>
             <button onclick="promptEditSeasonName()" class="text-amber-300/50 hover:text-amber-200 transition text-[10px]" title="Edit Season Name">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
@@ -181,7 +279,7 @@
       </div>
 
       <!-- Navigation Tabs (Desktop) -->
-      <div class="hidden md:flex items-center bg-black/55 p-1 rounded-xl border border-white/10 text-xs font-semibold backdrop-blur-md">
+      <div class="hidden md:flex items-center bg-[#050505] p-1 rounded-xl border border-stone-800 text-xs font-semibold">
         <button onclick="switchTab('standings')" id="navStandings" class="px-3.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-200 border border-amber-500/40 flex items-center gap-1.5 transition">
           <i id="navIconStandings" class="fa-solid fa-ranking-star"></i> Standings
         </button>
@@ -199,8 +297,8 @@
       <!-- Header Actions -->
       <div class="flex items-center gap-2 sm:gap-3">
         <!-- Live Cloud Sync Status Pill -->
-        <div id="cloudStatusBadge" onclick="openCloudConfigModal()" class="cursor-pointer px-2.5 py-1.5 rounded-xl glass-panel text-[11px] font-semibold text-stone-300 hover:text-white transition flex items-center gap-2 border border-white/10" title="Click to view Live Cloud Sync details">
-          <span id="cloudStatusDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
+        <div id="cloudStatusBadge" onclick="openCloudConfigModal()" class="cursor-pointer px-2.5 py-1.5 rounded-xl glass-panel text-[11px] font-semibold text-stone-300 hover:text-white transition flex items-center gap-2 border border-stone-800" title="Click to view Live Cloud Sync details">
+          <span id="cloudStatusDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
           <span class="hidden sm:inline" id="cloudStatusText">Live Sync</span>
           <i class="fa-solid fa-cloud text-amber-400 text-xs"></i>
         </div>
@@ -213,24 +311,24 @@
             <i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
           </button>
 
-          <div id="themeDropdownMenu" class="hidden absolute right-0 mt-2 w-56 rounded-2xl glass-panel shadow-2xl p-1.5 z-50 border border-white/15">
+          <div id="themeDropdownMenu" class="hidden absolute right-0 mt-2 w-56 rounded-2xl glass-panel shadow-2xl p-1.5 z-50 border border-stone-700">
             <button onclick="setAppTheme('rustic_cafe')" class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/10 flex items-center justify-between transition group">
               <span class="flex items-center gap-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-amber-600 shadow-[0_0_8px_#d4a373]"></span>
+                <span class="w-2.5 h-2.5 bg-[#e09f67]"></span>
                 <span class="text-white group-hover:text-amber-200">Morning Roast (Café)</span>
               </span>
               <i class="fa-solid fa-check text-amber-400 theme-check-icon" data-theme="rustic_cafe"></i>
             </button>
             <button onclick="setAppTheme('blind_eternities')" class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/10 flex items-center justify-between transition group">
               <span class="flex items-center gap-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"></span>
+                <span class="w-2.5 h-2.5 bg-[#00e5ff]"></span>
                 <span class="text-white group-hover:text-cyan-300">The Blind Eternities</span>
               </span>
               <i class="fa-solid fa-check text-cyan-400 hidden theme-check-icon" data-theme="blind_eternities"></i>
             </button>
             <button onclick="setAppTheme('mythic')" class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/10 flex items-center justify-between transition group">
               <span class="flex items-center gap-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_#f5c542]"></span>
+                <span class="w-2.5 h-2.5 bg-[#ffcc00]"></span>
                 <span class="text-white group-hover:text-amber-300">Mythic Gold</span>
               </span>
               <i class="fa-solid fa-check text-amber-400 hidden theme-check-icon" data-theme="mythic"></i>
@@ -256,7 +354,7 @@
     </div>
   </header>
 
-  <div class="md:hidden bg-black/80 backdrop-blur-md border-b border-white/10 px-4 py-2.5 flex items-center justify-between text-xs font-semibold sticky top-16 z-30">
+  <div class="md:hidden bg-[#050505] border-b border-stone-800 px-4 py-2.5 flex items-center justify-between text-xs font-semibold sticky top-16 z-30">
     <button onclick="switchTab('standings')" id="mNavStandings" class="text-amber-300 font-bold flex items-center gap-1"><i id="mNavIconStandings" class="fa-solid fa-ranking-star text-[11px]"></i> Standings</button>
     <button onclick="switchTab('matches')" id="mNavMatches" class="text-stone-400 flex items-center gap-1"><i id="mNavIconMatches" class="fa-solid fa-book-open text-[11px]"></i> Matches</button>
     <button onclick="switchTab('achievements')" id="mNavAchievements" class="text-stone-400 flex items-center gap-1"><i id="mNavIconAchievements" class="fa-solid fa-award text-[11px]"></i> Trophies</button>
@@ -272,7 +370,7 @@
           <span id="kpiLabelGames" class="text-[10px] uppercase tracking-wider font-semibold text-stone-400 block">Total Games</span>
           <span id="statTotalGames" class="text-xl sm:text-2xl font-black theme-heading text-white group-hover:text-amber-200 transition-colors">0</span>
         </div>
-        <div id="kpiBoxGames" class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 shadow-inner group-hover:scale-105 transition-transform">
+        <div id="kpiBoxGames" class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/30">
           <i id="kpiIconGames" class="fa-solid fa-mug-saucer text-base"></i>
         </div>
       </div>
@@ -282,7 +380,7 @@
           <span id="kpiLabelPlayers" class="text-[10px] uppercase tracking-wider font-semibold text-stone-400 block">Active Players</span>
           <span id="statActivePlayers" class="text-xl sm:text-2xl font-black theme-heading text-white group-hover:text-stone-200 transition-colors">0</span>
         </div>
-        <div id="kpiBoxPlayers" class="w-11 h-11 rounded-xl bg-stone-500/15 text-stone-300 flex items-center justify-center border border-stone-500/20 shadow-inner group-hover:scale-105 transition-transform">
+        <div id="kpiBoxPlayers" class="w-11 h-11 rounded-xl bg-stone-500/15 text-stone-300 flex items-center justify-center border border-stone-500/30">
           <i id="kpiIconPlayers" class="fa-solid fa-users text-base"></i>
         </div>
       </div>
@@ -292,7 +390,7 @@
           <span id="kpiLabelTrophies" class="text-[10px] uppercase tracking-wider font-semibold text-stone-400 block">Trophies Earned</span>
           <span id="statUnlockedAchievements" class="text-xl sm:text-2xl font-black theme-heading text-white group-hover:text-orange-200 transition-colors">0</span>
         </div>
-        <div id="kpiBoxTrophies" class="w-11 h-11 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center border border-orange-500/20 shadow-inner group-hover:scale-105 transition-transform">
+        <div id="kpiBoxTrophies" class="w-11 h-11 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center border border-orange-500/30">
           <i id="kpiIconTrophies" class="fa-solid fa-award text-base"></i>
         </div>
       </div>
@@ -302,7 +400,7 @@
           <span id="kpiLabelLeader" class="text-[10px] uppercase tracking-wider font-semibold text-stone-400 block">Table Leader</span>
           <span id="statCurrentLeader" class="text-sm sm:text-base font-black theme-heading text-amber-300 truncate max-w-[110px] sm:max-w-[130px] block">—</span>
         </div>
-        <div id="kpiBoxLeader" class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center border border-amber-500/20 shadow-inner group-hover:scale-105 transition-transform">
+        <div id="kpiBoxLeader" class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center border border-amber-500/30">
           <i id="kpiIconLeader" class="fa-solid fa-mug-hot text-base"></i>
         </div>
       </div>
@@ -322,7 +420,7 @@
         <!-- Controls: Sub-League Switcher, Search & Actions -->
         <div class="flex flex-wrap items-center gap-2.5">
           <!-- Sub-League Switcher -->
-          <div class="flex items-center bg-black/60 p-1 rounded-xl border border-white/10 shrink-0 shadow-inner">
+          <div class="flex items-center bg-[#050505] p-1 rounded-xl border border-stone-800 shrink-0">
             <button onclick="setLeagueView('pod')" id="viewPodBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-200 border border-amber-500/30 flex items-center gap-1.5 transition">
               <i id="viewPodIcon" class="fa-solid fa-mug-hot text-[10px]"></i>
               <span id="viewPodLabel">Pods (3–4P)</span>
@@ -352,14 +450,14 @@
         </div>
       </div>
 
-      <div class="overflow-x-auto glass-panel rounded-2xl shadow-xl border border-white/10">
+      <div class="overflow-x-auto glass-panel rounded-2xl shadow-xl border border-stone-800">
         <table class="w-full text-left text-xs border-collapse">
           <thead>
-            <tr id="standingsTableHeaderRow" class="border-b border-white/10 bg-black/40 text-stone-400 font-semibold uppercase tracking-wider text-[11px]">
+            <tr id="standingsTableHeaderRow" class="border-b border-stone-800 bg-black text-stone-400 font-semibold uppercase tracking-wider text-[11px]">
               <!-- Dynamic header populated in renderStandings -->
             </tr>
           </thead>
-          <tbody id="standingsTableBody" class="divide-y divide-white/5">
+          <tbody id="standingsTableBody" class="divide-y divide-stone-900">
             <!-- Dynamic rows injected here -->
           </tbody>
         </table>
@@ -378,7 +476,7 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <div class="flex items-center bg-black/60 p-1 rounded-xl border border-white/10 text-xs">
+          <div class="flex items-center bg-[#050505] p-1 rounded-xl border border-stone-800 text-xs">
             <button onclick="filterMatchHistory('all')" id="mfAllBtn" class="px-3 py-1 rounded-lg font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">All</button>
             <button onclick="filterMatchHistory('pod')" id="mfPodBtn" class="px-3 py-1 rounded-lg text-stone-400 hover:text-white">Pods</button>
             <button onclick="filterMatchHistory('duel')" id="mfDuelBtn" class="px-3 py-1 rounded-lg text-stone-400 hover:text-white">1v1s</button>
@@ -405,7 +503,7 @@
           <p class="text-xs text-stone-400 mt-0.5">16 distinct in-game badges earned during match night. Each grants +1 bonus league point.</p>
         </div>
         <div class="flex items-center gap-2">
-          <span class="text-xs px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 font-bold">
+          <span class="text-xs px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold">
             16 Trophies Active
           </span>
         </div>
@@ -434,14 +532,14 @@
   </main>
 
   <!-- MODAL: LOG GAME -->
-  <div id="logGameModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
-    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+  <div id="logGameModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90">
+    <div class="glass-panel border border-amber-500/40 rounded-2xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
       
-      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+      <div class="px-6 py-4 border-b border-stone-800 flex items-center justify-between bg-[#050505]">
         <h3 class="theme-heading font-bold text-base text-white flex items-center gap-2">
           <i class="fa-solid fa-dice-d20 text-amber-400"></i> Record League Match
         </h3>
-        <button onclick="closeLogGameModal()" class="w-8 h-8 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
+        <button onclick="closeLogGameModal()" class="w-8 h-8 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center border border-transparent hover:border-stone-700">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
@@ -466,8 +564,8 @@
         </div>
       </div>
 
-      <div class="px-6 py-4 border-t border-white/10 flex items-center justify-between bg-black/40">
-        <button onclick="closeLogGameModal()" class="px-4 py-2 rounded-xl font-semibold text-stone-400 hover:text-white">Cancel</button>
+      <div class="px-6 py-4 border-t border-stone-800 flex items-center justify-between bg-[#050505]">
+        <button onclick="closeLogGameModal()" class="px-4 py-2 rounded-xl font-semibold text-stone-400 hover:text-white border border-transparent hover:border-stone-700">Cancel</button>
         <button onclick="saveLoggedMatch()" class="px-5 py-2.5 rounded-xl font-bold theme-btn-primary shadow-lg">Save Match Result</button>
       </div>
 
@@ -475,9 +573,9 @@
   </div>
 
   <!-- MODAL: ADD PLAYER -->
-  <div id="addPlayerModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
-    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+  <div id="addPlayerModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90">
+    <div class="glass-panel border border-amber-500/40 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-stone-800 flex items-center justify-between bg-[#050505]">
         <h3 class="theme-heading font-bold text-sm text-white">Add New Player</h3>
         <button onclick="closePlayerModal()" class="w-7 h-7 rounded-lg hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
@@ -494,9 +592,9 @@
   </div>
 
   <!-- MODAL: EDIT LEAGUE TITLE -->
-  <div id="editLeagueTitleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
-    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+  <div id="editLeagueTitleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90">
+    <div class="glass-panel border border-amber-500/40 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-stone-800 flex items-center justify-between bg-[#050505]">
         <h3 class="theme-heading font-bold text-sm text-white flex items-center gap-2">
           <i class="fa-solid fa-pen-to-square text-amber-400"></i> Rename League
         </h3>
@@ -515,9 +613,9 @@
   </div>
 
   <!-- MODAL: EDIT SEASON -->
-  <div id="editSeasonModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
-    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+  <div id="editSeasonModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90">
+    <div class="glass-panel border border-amber-500/40 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-stone-800 flex items-center justify-between bg-[#050505]">
         <h3 class="theme-heading font-bold text-sm text-white flex items-center gap-2">
           <i class="fa-solid fa-pen-to-square text-amber-400"></i> Rename Season
         </h3>
@@ -536,16 +634,16 @@
   </div>
 
   <!-- MODAL: CONFIRM ACTION -->
-  <div id="confirmActionModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
-    <div class="glass-panel border border-rose-500/30 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
+  <div id="confirmActionModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90">
+    <div class="glass-panel border border-rose-500/40 rounded-2xl w-full max-w-sm flex flex-col shadow-2xl overflow-hidden">
       <div class="p-5 flex flex-col items-center text-center gap-3">
-        <div class="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-lg">
+        <div class="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center text-lg">
           <i class="fa-solid fa-triangle-exclamation"></i>
         </div>
         <h3 id="confirmModalTitle" class="theme-heading font-bold text-base text-white">Confirm Action</h3>
         <p id="confirmModalDesc" class="text-xs text-stone-300">Are you sure you want to proceed?</p>
       </div>
-      <div class="px-5 py-3 border-t border-white/10 flex items-center justify-end gap-2 bg-black/40">
+      <div class="px-5 py-3 border-t border-stone-800 flex items-center justify-end gap-2 bg-[#050505]">
         <button onclick="closeConfirmModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-stone-400 hover:text-white">Cancel</button>
         <button id="confirmExecuteBtn" onclick="executePendingConfirmAction()" class="px-4 py-1.5 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-md">Confirm</button>
       </div>
@@ -553,9 +651,9 @@
   </div>
 
   <!-- MODAL: PLAYER DOSSIER -->
-  <div id="playerDossierModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
-    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+  <div id="playerDossierModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90">
+    <div class="glass-panel border border-amber-500/40 rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-stone-800 flex items-center justify-between bg-[#050505]">
         <div class="flex items-center gap-3">
           <div id="dossierAvatar" class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-200 theme-heading font-bold text-base flex items-center justify-center border border-amber-500/30">?</div>
           <div>
@@ -573,20 +671,20 @@
       <div class="p-6 flex-1 overflow-y-auto flex flex-col gap-5 text-xs">
         
         <!-- Special Commendations Box -->
-        <div id="dossierCommendationsSection" class="p-3 rounded-xl bg-white/5 border border-white/10 flex flex-wrap gap-2 items-center">
+        <div id="dossierCommendationsSection" class="p-3 rounded-xl bg-[#050505] border border-stone-800 flex flex-wrap gap-2 items-center">
           <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 mr-1">Honors:</span>
           <div id="dossierCommendationBadges" class="flex flex-wrap gap-1.5"></div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
-          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex flex-col gap-1">
+          <div class="p-3.5 rounded-xl bg-[#050505] border border-stone-800 flex flex-col gap-1">
             <span class="text-[10px] uppercase font-bold text-stone-400 flex items-center gap-1.5">
               <i id="dossierPodIcon" class="fa-solid fa-mug-hot text-amber-400"></i> Pod Record (3–4P)
             </span>
             <span id="dossierPodRecord" class="theme-heading font-bold text-base text-white">0W / 0G (0%)</span>
             <span id="dossierPodPoints" class="text-[11px] text-amber-300">0 Pod Points</span>
           </div>
-          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex flex-col gap-1">
+          <div class="p-3.5 rounded-xl bg-[#050505] border border-stone-800 flex flex-col gap-1">
             <span class="text-[10px] uppercase font-bold text-stone-400 flex items-center gap-1.5">
               <i id="dossierDuelIcon" class="fa-solid fa-fire-flame-curved text-orange-400"></i> 1v1 Duel Record
             </span>
@@ -606,9 +704,9 @@
   </div>
 
   <!-- MODAL: DATA & SHARE -->
-  <div id="dataModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
-    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-lg flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+  <div id="dataModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90">
+    <div class="glass-panel border border-amber-500/40 rounded-2xl w-full max-w-lg flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-stone-800 flex items-center justify-between bg-[#050505]">
         <h3 class="theme-heading font-bold text-sm text-white flex items-center gap-2">
           <i class="fa-solid fa-share-nodes text-amber-400"></i> Share & Backup League Data
         </h3>
@@ -621,9 +719,9 @@
         <button onclick="copyShareUrl()" class="w-full py-2.5 rounded-xl font-bold theme-btn-primary flex items-center justify-center gap-2">
           <i class="fa-solid fa-link"></i> <span id="copyUrlLabel">Copy Shareable League Link</span>
         </button>
-        <div class="flex items-center gap-2 pt-2 border-t border-white/10">
-          <button onclick="exportJsonFile()" class="flex-1 py-2 rounded-xl bg-white/5 border border-white/10 text-stone-300 hover:text-white font-semibold">Download .JSON</button>
-          <label class="flex-1 py-2 rounded-xl bg-white/5 border border-white/10 text-stone-300 hover:text-white font-semibold text-center cursor-pointer">
+        <div class="flex items-center gap-2 pt-2 border-t border-stone-800">
+          <button onclick="exportJsonFile()" class="flex-1 py-2 rounded-xl bg-white/5 border border-stone-700 text-stone-300 hover:text-white font-semibold">Download .JSON</button>
+          <label class="flex-1 py-2 rounded-xl bg-white/5 border border-stone-700 text-stone-300 hover:text-white font-semibold text-center cursor-pointer">
             <span>Import .JSON</span>
             <input type="file" accept=".json" onchange="importJsonFile(event)" class="hidden">
           </label>
@@ -633,9 +731,9 @@
   </div>
 
   <!-- MODAL: LIVE CLOUD SYNC DETAILS -->
-  <div id="cloudConfigModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
-    <div class="glass-panel border border-amber-500/30 rounded-2xl w-full max-w-md flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+  <div id="cloudConfigModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90">
+    <div class="glass-panel border border-amber-500/40 rounded-2xl w-full max-w-md flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-stone-800 flex items-center justify-between bg-[#050505]">
         <h3 class="theme-heading font-bold text-sm text-white flex items-center gap-2">
           <i class="fa-solid fa-cloud text-amber-400"></i> Live Playgroup Cloud Sync
         </h3>
@@ -644,16 +742,16 @@
         </button>
       </div>
       <div class="p-5 flex flex-col gap-4 text-xs text-stone-300">
-        <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex flex-col gap-2">
+        <div class="p-3.5 rounded-xl bg-[#050505] border border-stone-800 flex flex-col gap-2">
           <div class="flex items-center justify-between">
             <span class="text-stone-400 uppercase tracking-wider font-semibold text-[10px]">Sync Status</span>
             <span id="cloudDetailStatus" class="font-bold text-stone-400 flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-stone-500"></span> Local Mode
             </span>
           </div>
-          <div class="pt-2 border-t border-white/10 flex flex-col gap-1">
+          <div class="pt-2 border-t border-stone-800 flex flex-col gap-1">
             <span class="text-stone-400 text-[10px] uppercase font-semibold">Active User ID:</span>
-            <span id="fullUserIdDisplay" class="font-mono text-[11px] text-amber-300 break-all bg-black/60 p-2 rounded-lg border border-white/5 select-all">Local Guest</span>
+            <span id="fullUserIdDisplay" class="font-mono text-[11px] text-amber-300 break-all bg-black p-2 rounded-lg border border-stone-800 select-all">Local Guest</span>
           </div>
         </div>
 
@@ -686,6 +784,104 @@
       <span id="toastMessage">Action completed!</span>
     </div>
   </div>
+
+  <!-- HIGH-DEFINITION VECTOR SVG ICON ENGINE (Replaces AI/FA Icons & Emojis without altering app logic) -->
+  <script>
+    (function() {
+      const HD_SVGS = {
+        'fa-mug-hot': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><path d="M4 8h12v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8z"/><path d="M16 10h3a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-3"/><path d="M7 3v3M10 2v4M13 3v3"/><line x1="2" y1="22" x2="18" y2="22"/></svg>',
+        'fa-mug-saucer': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><path d="M4 6h12v8a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V6z"/><path d="M16 8h3v4h-3"/><line x1="2" y1="20" x2="20" y2="20"/></svg>',
+        'fa-pen-to-square': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><path d="M11 4H4v16h16v-7"/><path d="M18.5 2.5l3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+        'fa-ranking-star': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><path d="M9 11h6v10H9zM3 15h6v6H3zM15 14h6v7h-6z"/><polygon points="12 2 13.8 5.6 17.8 6.2 14.9 9 15.6 13 12 11.1 8.4 13 9.1 9 6.2 6.2 10.2 5.6 12 2"/></svg>',
+        'fa-book-open': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><path d="M2 4h8l2 2v15l-2-2H2V4z"/><path d="M22 4h-8l-2 2v15l2-2h8V4z"/></svg>',
+        'fa-book-skull': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20"/><line x1="8" y1="2" x2="8" y2="22"/><circle cx="14" cy="10" r="3"/><path d="M12 13v3h4v-3"/></svg>',
+        'fa-award': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 2 19 6 19 13 12 17 5 13 5 6 12 2"/><polyline points="8.5 15 7 22 12 19.5 17 22 15.5 15"/></svg>',
+        'fa-crown': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="2 18 4 6 9 11 12 4 15 11 20 6 22 18 2 18"/><line x1="2" y1="21" x2="22" y2="21"/></svg>',
+        'fa-cloud': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="6 19 2 15 4 10 9 10 12 5 18 6 20 11 22 14 20 19 6 19"/></svg>',
+        'fa-palette': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>',
+        'fa-chevron-down': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>',
+        'fa-check': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+        'fa-plus': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>',
+        'fa-share-nodes': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="16" y="2" width="5" height="5"/><rect x="3" y="9.5" width="5" height="5"/><rect x="16" y="17" width="5" height="5"/><line x1="8" y1="11" x2="16" y2="5.5"/><line x1="8" y1="13" x2="16" y2="18.5"/></svg>',
+        'fa-volume-high': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5l2.5 3.5-2.5 3.5"/><path d="M18.5 5l4 7-4 7"/></svg>',
+        'fa-volume-xmark': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>',
+        'fa-users': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="6" y="4" width="6" height="6"/><path d="M3 20v-4l3-2h6l3 2v4"/><rect x="15" y="5" width="5" height="5"/><path d="M16 14h4l2 2v4"/></svg>',
+        'fa-fire-flame-curved': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 2 19 10 16 14 19 16 12 22 5 15 8 10 6 7 12 2"/></svg>',
+        'fa-magnifying-glass': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7.5"/><line x1="21" y1="21" x2="15.8" y2="15.8"/></svg>',
+        'fa-broom': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1.5 15h-11L5 6"/><path d="M9 6V3h6v3"/></svg>',
+        'fa-user-plus': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="5" y="4" width="7" height="7"/><path d="M2 20v-4l3-2h7l3 2v4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>',
+        'fa-user-check': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="5" y="4" width="7" height="7"/><path d="M2 20v-4l3-2h7l3 2v4"/><polyline points="16 11 18 13 22 9"/></svg>',
+        'fa-dice-d20': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 2 21 7 21 17 12 22 3 17 3 7 12 2"/><polygon points="12 6 17 15 7 15 12 6"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="21" y1="7" x2="17" y2="15"/><line x1="3" y1="7" x2="7" y2="15"/><line x1="12" y1="22" x2="17" y2="15"/><line x1="12" y1="22" x2="7" y2="15"/></svg>',
+        'fa-xmark': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+        'fa-triangle-exclamation': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 2 22 20 2 20 12 2"/><line x1="12" y1="9" x2="12" y2="14"/><rect x="11.5" y="16.5" width="1" height="1"/></svg>',
+        'fa-link': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polyline points="9 17 4 17 4 7 9 7"/><polyline points="15 7 20 7 20 17 15 17"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',
+        'fa-infinity': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="2 12 6 7 10 7 14 17 18 17 22 12 18 7 14 7 10 17 6 17 2 12"/></svg>',
+        'fa-atom': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="10.5" y="10.5" width="3" height="3"/><polygon points="12 2 20 12 12 22 4 12 12 2"/><polygon points="2 12 12 4 22 12 12 20 2 12"/></svg>',
+        'fa-meteor': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="4 14 10 14 10 20 4 20 4 14"/><line x1="14" y1="10" x2="22" y2="2"/><line x1="8" y1="10" x2="18" y2="0"/><line x1="14" y1="16" x2="24" y2="6"/></svg>',
+        'fa-circle-nodes': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="10" y="2" width="4" height="4"/><rect x="2" y="16" width="4" height="4"/><rect x="18" y="16" width="4" height="4"/><line x1="11" y1="6" x2="4" y2="16"/><line x1="13" y1="6" x2="20" y2="16"/><line x1="6" y1="18" x2="18" y2="18"/></svg>',
+        'fa-scroll': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg>',
+        'fa-eye': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="1 12 12 5 23 12 12 19 1 12"/><rect x="10" y="10" width="4" height="4"/></svg>',
+        'fa-bolt-lightning': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+        'fa-bolt': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+        'fa-trophy': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><path d="M6 3h12v7l-6 5-6-5V3z"/><path d="M6 5H3v4l3 2M18 5h3v4l-3 2"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="7" y1="21" x2="17" y2="21"/></svg>',
+        'fa-medal': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="7 2 12 9 17 2"/><polygon points="12 9 17 13 15 19 9 19 7 13 12 9"/></svg>',
+        'fa-shield': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 2 20 5 20 13 12 22 4 13 4 5 12 2"/></svg>',
+        'fa-shield-halved': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 2 20 5 20 13 12 22 4 13 4 5 12 2"/><line x1="12" y1="2" x2="12" y2="22"/></svg>',
+        'fa-droplet': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 2 19 14 12 22 5 14 12 2"/></svg>',
+        'fa-bomb': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 6 18 10 18 18 12 22 6 18 6 10 12 6"/><polyline points="12 6 15 2 19 4"/></svg>',
+        'fa-mortar-pestle': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="3 11 21 11 18 20 6 20 3 11"/><line x1="14" y1="11" x2="19" y2="3"/><line x1="4" y1="22" x2="20" y2="22"/></svg>',
+        'fa-wand-magic-sparkles': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><line x1="3" y1="21" x2="15" y2="9"/><polygon points="18 2 19.5 5.5 23 7 19.5 8.5 18 12 16.5 8.5 13 7 16.5 5.5 18 2"/></svg>',
+        'fa-dragon': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="3 4 11 4 15 8 21 6 19 14 13 14 16 21 6 21 9 13 3 11 3 4"/></svg>',
+        'fa-burst': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 1 15 7 22 5 18 11 23 16 16 17 15 23 11 18 5 21 7 14 1 11 7 8 5 2 11 6 12 1"/></svg>',
+        'fa-chess-rook': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><path d="M5 3h3v3h2V3h4v3h2V3h3v6l-2 2v7h3v3H4v-3h3v-7L5 9V3z"/></svg>',
+        'fa-handshake': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="2 9 7 4 12 9 17 4 22 9 17 15 12 20 7 15 2 9"/><line x1="7" y1="15" x2="12" y2="10"/><line x1="17" y1="15" x2="12" y2="10"/></svg>',
+        'fa-forward-fast': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="2 5 11 12 2 19 2 5"/><polygon points="12 5 21 12 12 19 12 5"/><line x1="22" y1="5" x2="22" y2="19"/></svg>',
+        'fa-biohazard': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="12 2 16 8 8 8 12 2"/><polygon points="4 18 8 12 12 18 4 18"/><polygon points="20 18 12 18 16 12 20 18"/><rect x="10.5" y="10.5" width="3" height="3"/></svg>',
+        'fa-skull': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polygon points="5 4 19 4 21 13 17 16 17 21 7 21 7 16 3 13 5 4"/><rect x="8" y="10" width="2.5" height="2.5"/><rect x="13.5" y="10" width="2.5" height="2.5"/><line x1="10" y1="17" x2="10" y2="21"/><line x1="14" y1="17" x2="14" y2="21"/></svg>',
+        'fa-scale-unbalanced-flip': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><line x1="12" y1="3" x2="12" y2="21"/><line x1="7" y1="21" x2="17" y2="21"/><line x1="4" y1="9" x2="20" y2="5"/><polygon points="4 9 1 16 7 16 4 9"/><polygon points="20 5 17 12 23 12 20 5"/></svg>',
+        'fa-crosshairs': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><line x1="12" y1="1" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="23"/><line x1="1" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="23" y2="12"/></svg>',
+        'fa-trash-can': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polyline points="3 6 21 6"/><path d="M6 6v15h12V6"/><path d="M9 6V3h6v3"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>',
+        'fa-info': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><line x1="12" y1="11" x2="12" y2="17"/><rect x="11.5" y="7" width="1" height="1"/></svg>',
+        'fa-rotate': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polyline points="21 3 21 9 15 9"/><path d="M21 9L16 4H6L3 12l3 8h12l3-5"/></svg>',
+        'fa-download': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><line x1="12" y1="3" x2="12" y2="16"/><polyline points="7 11 12 16 17 11"/><polyline points="4 17 4 21 20 21 20 17"/></svg>',
+        'fa-file-import': '<svg class="hd-svg-icon" viewBox="0 0 24 24"><polyline points="14 2 14 8 20 8"/><polygon points="6 2 14 2 20 8 20 22 6 22 6 2"/><line x1="2" y1="15" x2="13" y2="15"/><polyline points="10 12 13 15 10 18"/></svg>'
+      };
+
+      function upgradeIconsAndStripEmojis() {
+        // 1. Replace all FontAwesome <i> tags with high-definition geometric vector SVGs
+        document.querySelectorAll('i[class*="fa-"]').forEach(el => {
+          const classes = Array.from(el.classList);
+          const faName = classes.find(c => HD_SVGS[c]);
+          if (faName && el.getAttribute('data-hd-svg') !== faName) {
+            el.setAttribute('data-hd-svg', faName);
+            el.innerHTML = HD_SVGS[faName];
+          }
+        });
+
+        // 2. Replace basic AI emojis in winner badges (1st ☕ / 1st 🌌 / 1st 🏆) with crisp vector SVGs
+        document.querySelectorAll('span').forEach(sp => {
+          if (sp.children.length === 0 && /[\u{1F3C6}\u{2615}\u{1F30C}]/u.test(sp.textContent)) {
+            const cleanText = sp.textContent.replace(/[\u{1F3C6}\u{2615}\u{1F30C}]/gu, '').trim();
+            sp.innerHTML = `<span class="inline-flex items-center gap-1">${cleanText} ${HD_SVGS['fa-trophy']}</span>`;
+          }
+        });
+      }
+
+      const observer = new MutationObserver(() => {
+        upgradeIconsAndStripEmojis();
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        upgradeIconsAndStripEmojis();
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class']
+        });
+      });
+    })();
+  </script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -935,27 +1131,27 @@
       data: loadStoredData()
     };
 
-   // Firebase & Cloud State Management
-const appId = 'mtg-league-2e8e6';
-let app = null;
-let auth = null;
-let db = null;
-let currentUser = null;
-let currentUserId = 'anonymous-player';
-let isCloudSynced = false;
+    // Firebase & Cloud State Management
+    const appId = 'mtg-league-2e8e6';
+    let app = null;
+    let auth = null;
+    let db = null;
+    let currentUser = null;
+    let currentUserId = 'anonymous-player';
+    let isCloudSynced = false;
 
-function getActiveFirebaseConfig() {
-  return {
-    apiKey: "AIzaSyD73OWWIu9rc4YkFKACNCSucQCEtx1Ctik",
-    authDomain: "mtg-league-2e8e6.firebaseapp.com",
-    databaseURL: "https://mtg-league-2e8e6-default-rtdb.firebaseio.com",
-    projectId: "mtg-league-2e8e6",
-    storageBucket: "mtg-league-2e8e6.firebasestorage.app",
-    messagingSenderId: "805224736613",
-    appId: "1:805224736613:web:b28c97712bc6624203238c",
-    measurementId: "G-CKJRHPCYD"
-  };
-}
+    function getActiveFirebaseConfig() {
+      return {
+        apiKey: "AIzaSyD73OWWIu9rc4YkFKACNCSucQCEtx1Ctik",
+        authDomain: "mtg-league-2e8e6.firebaseapp.com",
+        databaseURL: "https://mtg-league-2e8e6-default-rtdb.firebaseio.com",
+        projectId: "mtg-league-2e8e6",
+        storageBucket: "mtg-league-2e8e6.firebasestorage.app",
+        messagingSenderId: "805224736613",
+        appId: "1:805224736613:web:b28c97712bc6624203238c",
+        measurementId: "G-CKJRHPCYD"
+      };
+    }
 
     async function initCloudSync() {
       const config = getActiveFirebaseConfig();
@@ -1669,7 +1865,7 @@ function getActiveFirebaseConfig() {
         card.innerHTML = `
           <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${isDuel ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30' : `${accents.bg} ${accents.text} border ${accents.border}`}">
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${isDuel ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30' : `${accents.bg} ${accents.text} border${accents.border}`}">
                 <i class="fa-solid ${isDuel ? currentThemeObj.subleague.duelIcon : currentThemeObj.subleague.podIcon} text-[9px] mr-1"></i>
                 ${isDuel ? '1v1 Duel' : 'Pod Match'}
               </span>
